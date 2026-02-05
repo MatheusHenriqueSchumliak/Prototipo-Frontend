@@ -242,7 +242,7 @@ export function Home() {
             fontSize: "clamp(1.5rem, 4vw, 1.75rem)",
           }}
         >
-          Da Comunidade Artesanal
+          Comunidade Artesanal
         </Title>
 
         {/* Seção de Artesãos */}

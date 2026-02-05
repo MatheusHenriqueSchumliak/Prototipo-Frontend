@@ -149,7 +149,7 @@ export default function ExibirArtesanato() {
             color="blue"
             size="sm"
             component={Link}
-            to="/Artesanatos"
+            to="/ListarArtesanatos"
             leftSection={<TbArrowLeft size={16} />}
           >
             Ver todos os artesanatos
