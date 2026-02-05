@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to="/Home" /> }, // Redireciona de "/" para "/Home"
       { path: "Home", element: <Home /> },
 
-      { path: "CadastrarUsuario", element: <CadastrarUsuario /> },
+      
       { path: "ListarUsuarios", element: <ListarUsuarios /> },
       { path: "EditarUsuario", element: <EditarUsuario /> },
 
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
       { path: "Teste", element: <Teste /> },
     ],
   },
+  { path: "CadastrarUsuario", element: <CadastrarUsuario /> },
   {
     path: "/login",
     element: <Login />,
