@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 export default function Teste() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-  const [progress, setProgress] = useState(0);
+  const [progress] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
 

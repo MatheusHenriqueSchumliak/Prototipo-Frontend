@@ -263,7 +263,7 @@ export function Home() {
                   transition: "transform 0.2s ease", // Efeito suave
                 }}
                 // Adiciona o evento de clique no card inteiro
-                onClick={() => handleArtesaoClick(artesao.Id)}
+                onClick={() => handleArtesaoClick(artesao?.Id!)}
                 // Efeito hover opcional
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-2px)";

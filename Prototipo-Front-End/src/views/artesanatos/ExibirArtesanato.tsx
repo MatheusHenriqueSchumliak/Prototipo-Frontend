@@ -160,12 +160,12 @@ export default function ExibirArtesanato() {
             color="blue"
             size="sm"
             component={Link}
-            to={`/ExibirArtesao/id=${artesanato.ArtesaoId}`}
+            to={`/ExibirArtesao/id=${artesanato?.ArtesaoId}`}
             leftSection={<TbUser size={16} />}
             disabled={!artesao}
           >
             {artesao
-              ? `Perfil de ${artesao.NomeArtesao.split(" ")[0]}`
+              ? `Perfil de ${artesao?.NomeArtesao!.split(" ")[0]}`
               : "Carregando perfil..."}
           </Button>
         </Flex>

@@ -175,7 +175,7 @@ export default function ExibirArtesao() {
 
               {/* Descrição do artesão */}
               <Box style={{ maxWidth: 700, margin: "0 auto" }}>
-                {artesao.DescricaoPerfil.split("\n").map((paragraph, index) => (
+                {artesao?.DescricaoPerfil!.split("\n").map((paragraph, index) => (
                   <Text size="sm" fw={600} c="dimmed" mb="xs">
                     Sobre o Artesão:
                     <Text
@@ -230,7 +230,7 @@ export default function ExibirArtesao() {
                         CEP:
                       </Text>
                       <Text size="sm" fw={500}>
-                        {formatCEP(artesao.CEP)}
+                        {formatCEP(artesao?.CEP!)}
                       </Text>
                     </Group>
 

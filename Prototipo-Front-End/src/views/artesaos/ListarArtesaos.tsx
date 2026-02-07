@@ -54,18 +54,18 @@ export default function ListarArtesaos() {
 
   // Adicione esta função antes do return
   const obterNichosUnicos = () => {
-    const nichos = artesaos
-      .map((artesao) => artesao.NichoAtuacao)
-      .filter(
-        (nicho, index, array) =>
-          nicho && nicho.trim() !== "" && array.indexOf(nicho) === index
+    const nichosUnicos = Array.from(
+      new Set(
+        artesaos
+          .map((artesao) => artesao.NichoAtuacao)
+          .filter((nicho): nicho is string => nicho !== undefined && nicho !== null && nicho !== "")
       )
-      .sort();
+    );
 
-    return [
-      { value: "", label: "Todas as áreas" },
-      ...nichos.map((nicho) => ({ value: nicho, label: nicho })),
-    ];
+    return nichosUnicos.map((nicho) => ({
+      value: nicho,
+      label: nicho,
+    }));
   };
 
   return (
@@ -130,7 +130,7 @@ export default function ListarArtesaos() {
                 }
               />
             </Group>
-            
+
           </Stack>
         </Card>
 
