@@ -23,26 +23,27 @@ import { useState, useEffect, useMemo } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
 import styles from "./style.module.css";
+import { useAuth } from "../../context/AuthContext";
 export function Home() {
+  const { isAuthenticated } = useAuth();
   const [artesanatos, setArtesanatos] = useState<ArtesanatoModel[]>([]);
   const [artesaos, setArtesaos] = useState<ArtesaoModel[]>([]);
   const [, setError] = useState<string | null>(null);
   const [, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  // Faz a requisição para buscar os artesanatos da API
+  // ✅ Só busca se estiver autenticado
   useEffect(() => {
     const fetchArtesanatos = async () => {
+      if (!isAuthenticated) return; // ✅ ADICIONE ISSO
+      
       setLoading(true);
       try {
         const resposta = await listarArtesanatos();
-
-        // Garante que cada item tenha 'imagens' como array
         const artesanatosTratados = resposta.map((item: ArtesanatoModel) => ({
           ...item,
           imagens: Array.isArray(item.ImagemUrl) ? item.ImagemUrl : [],
         }));
-
         setArtesanatos(artesanatosTratados);
         setError(null);
       } catch (erro: any) {
@@ -54,22 +55,19 @@ export function Home() {
     };
 
     fetchArtesanatos();
-  }, []);
+  }, [isAuthenticated]); // ✅ Adicione isAuthenticated como dependência
 
-  // Hook para buscar artesãos (adaptado do seu fetchArtesanatos)
+  // ✅ Só busca se estiver autenticado
   useEffect(() => {
     const fetchArtesaos = async () => {
+      if (!isAuthenticated) return; // ✅ ADICIONE ISSO
+      
       setLoading(true);
       try {
-        // Substitua 'listarArtesaos()' pela sua função de API
-        const resposta = await listarArtesaos(); // sua função de API aqui
-
-        // Tratamento dos dados se necessário (similar ao que você fez)
+        const resposta = await listarArtesaos();
         const artesaosTratados = resposta.map((item: ArtesaoModel) => ({
           ...item,
-          // adicione qualquer tratamento específico aqui
         }));
-
         setArtesaos(artesaosTratados);
         setError(null);
       } catch (erro: any) {
@@ -81,7 +79,7 @@ export function Home() {
     };
 
     fetchArtesaos();
-  }, []);
+  }, [isAuthenticated]); // ✅ Adicione isAuthenticated como dependência
 
   // Pega até 3 imagens (uma de cada artesanato)
   const imagensArtesanatos = artesanatos
