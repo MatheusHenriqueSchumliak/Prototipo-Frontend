@@ -1,4 +1,3 @@
-import { useAuth } from "../../context/AuthContext";
 import { Link, Outlet } from "react-router-dom";
 import classes from "./style.module.css";
 import {
@@ -20,7 +19,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 
 export default function RootLayout() {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated  = false;
   const [opened, { open, close }] = useDisclosure(false);
 
   const menuItems = [
