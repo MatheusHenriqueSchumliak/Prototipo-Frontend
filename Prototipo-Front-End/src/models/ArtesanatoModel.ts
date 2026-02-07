@@ -17,7 +17,7 @@ export interface ArtesanatoModel {
 }
 
 export interface ArtesanatoFormProps {
-    artesanato: ArtesanatoModel;
+    artesanato?: Partial<ArtesanatoModel>;
     onSubmit: (artesanatoAtualizado: ArtesanatoModel) => void;
 }
 // Funções relacionadas ao modelo

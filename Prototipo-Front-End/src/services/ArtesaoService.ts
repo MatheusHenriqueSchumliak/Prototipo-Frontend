@@ -39,7 +39,7 @@ export const cadastrarArtesao = async (artesao: ArtesaoModel): Promise<ArtesaoMo
     return await apiRequest<ArtesaoModel>("Artesao/Adicionar", formData, "POST");
 };
 
-export const atualizaArtesao = async (id: string, artesao: ArtesaoModel): Promise<ArtesaoModel> => {
+export const atualizaArtesao = async (id: string, artesao: FormData): Promise<ArtesaoModel> => {
     const formData = new FormData();
     if (!id) {
         throw new Error("O ID do artesão é inválido.");

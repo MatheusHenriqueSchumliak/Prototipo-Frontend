@@ -22,7 +22,15 @@ export default function CadastrarArtesao() {
     Numero: "",
     SemNumero: false,
     DataCadastro: new Date(),
-    FotoUrl: ""
+    FotoUrl: "",
+    NomeCompleto: "",
+    Idade: 0,
+    Email: "",
+    Instagram: "",
+    Facebook: "",
+    NichoAtuacao: "",
+    LocalFisico: false,
+    FeiraMunicipal: false
   };
 
   const handleSubmit = (artesaoAtualizado: ArtesaoModel) => {

@@ -33,28 +33,28 @@ const EditarArtesao: React.FC = () => {
     if (!id) return;
 
     const formData = new FormData();
-    formData.append("id", updatedArtesao.Id);
-    formData.append("nomeArtesao", updatedArtesao.NomeArtesao);
-    formData.append("telefone", updatedArtesao.Telefone);
-    formData.append("whatsApp", updatedArtesao.WhatsApp);
-    formData.append("descricaoPerfil", updatedArtesao.DescricaoPerfil);
-    formData.append("usuarioId", updatedArtesao.UsuarioId);
+    formData.append("id", updatedArtesao.Id || "");
+    formData.append("nomeArtesao", updatedArtesao.NomeArtesao || "");
+    formData.append("telefone", updatedArtesao.Telefone || "");
+    formData.append("whatsApp", updatedArtesao.WhatsApp || "");
+    formData.append("descricaoPerfil", updatedArtesao.DescricaoPerfil || "");
+    formData.append("usuarioId", updatedArtesao.UsuarioId || "");
     formData.append(
       "receberEncomendas",
-      updatedArtesao.ReceberEncomendas.toString()
+      updatedArtesao.ReceberEncomendas?.toString() || "false"
     );
     formData.append(
       "enviaEncomendas",
-      updatedArtesao.EnviaEncomendas.toString()
+      updatedArtesao.EnviaEncomendas?.toString() || "false"
     );
-    formData.append("cep", updatedArtesao.CEP);
-    formData.append("estado", updatedArtesao.Estado);
-    formData.append("cidade", updatedArtesao.Cidade);
-    formData.append("rua", updatedArtesao.Rua);
-    formData.append("bairro", updatedArtesao.Bairro);
-    formData.append("complemento", updatedArtesao.Complemento);
-    formData.append("numero", updatedArtesao.Numero);
-    formData.append("semNumero", updatedArtesao.SemNumero.toString());
+    formData.append("cep", updatedArtesao.CEP || "");
+    formData.append("estado", updatedArtesao.Estado || "" );
+    formData.append("cidade", updatedArtesao.Cidade || "");
+    formData.append("rua", updatedArtesao.Rua || "");
+    formData.append("bairro", updatedArtesao.Bairro || "");
+    formData.append("complemento", updatedArtesao.Complemento || "");
+    formData.append("numero", updatedArtesao.Numero || "");
+    formData.append("semNumero", updatedArtesao.SemNumero?.toString() || "false");
 
     if (
       updatedArtesao.Imagem &&
