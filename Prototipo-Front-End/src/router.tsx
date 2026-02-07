@@ -17,39 +17,44 @@ import Login from "./views/login/Login";
 import Logout from "./views/login/Logout";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <Navigate to="/Home" /> }, // Redireciona de "/" para "/Home"
-      { path: "Home", element: <Home /> },
-
-      
-      { path: "ListarUsuarios", element: <ListarUsuarios /> },
-      { path: "EditarUsuario", element: <EditarUsuario /> },
-
-      { path: "ListarArtesaos", element: <ListarArtesaos /> },
-      { path: "CadastrarArtesao", element: <CadastrarArtesao /> },
-      { path: "EditarArtesao/:id", element: <EditarArtesao /> },
-      { path: "ExibirArtesao/:id", element: <ExibirArtesao /> },
-
-      { path: "CadastrarArtesanato", element: <CadastrarArtesanato /> },
-      { path: "ListarArtesanatos", element: <ListarArtesanatos /> },
-      { path: "ExibirArtesanato/:id", element: <ExibirArtesanato /> },
-      { path: "Artesanatos", element: <Artesanatos /> },
-      { path: "Teste", element: <Teste /> },
-    ],
-  },
-  { path: "CadastrarUsuario", element: <CadastrarUsuario /> },
+  // ✅ Rotas públicas (sem autenticação)
   {
     path: "/login",
     element: <Login />,
   },
   {
+    path: "/cadastrar-usuario",
+    element: <CadastrarUsuario />,
+  },
+  {
     path: "/logout",
     element: <Logout />,
   },
-  
+
+  // 🔒 Rotas protegidas (com autenticação)
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Navigate to="/home" /> },
+      { path: "home", element: <Home /> },
+
+      { path: "listar-usuarios", element: <ListarUsuarios /> },
+      { path: "editar-usuario", element: <EditarUsuario /> },
+
+      { path: "listar-artesaos", element: <ListarArtesaos /> },
+      { path: "cadastrar-artesao", element: <CadastrarArtesao /> },
+      { path: "editar-artesao/:id", element: <EditarArtesao /> },
+      { path: "exibir-artesao/:id", element: <ExibirArtesao /> },
+
+      { path: "cadastrar-artesanato", element: <CadastrarArtesanato /> },
+      { path: "listar-artesanatos", element: <ListarArtesanatos /> },
+      { path: "exibir-artesanato/:id", element: <ExibirArtesanato /> },
+      { path: "artesanatos", element: <Artesanatos /> },
+      { path: "teste", element: <Teste /> },
+    ],
+  },
 ]);
+
 
 export default router;

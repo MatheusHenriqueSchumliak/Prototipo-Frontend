@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+// context/AuthContext.tsx
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,22 +10,22 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);  
-  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
+    // ✅ Apenas verifica se existe token, SEM fazer requisição
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
 
   const login = (token: string) => {
-    console.log("Salvando token:", token);
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    setIsAuthenticated(false);    
+    setIsAuthenticated(false);
   };
 
   return (
@@ -43,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth deve ser usado dentro de AuthProvider");
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };
