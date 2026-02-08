@@ -6,8 +6,22 @@ type BuscarArtesanatoResponse = {
   data: ArtesanatoModel;
 };
 
+interface ApiResponse<T> {
+  data: T;
+}
+
 export const listarArtesanatos = async (): Promise<ArtesanatoModel[]> => {
-  return await apiRequest<ArtesanatoModel[]>("Artesanato/BuscarTodos", null, "GET");
+  const response = await apiRequest<ApiResponse<ArtesanatoModel[]>>(
+    "Artesanato/BuscarTodos",
+    null,
+    "GET"
+  );
+
+  if (!Array.isArray(response.data)) {
+    throw new Error("Resposta da API não contém uma lista de artesanatos");
+  }
+
+  return response.data;
 };
 
 export const cadastrarArtesanato = async (artesanato: ArtesanatoModel): Promise<ArtesanatoModel> => {
