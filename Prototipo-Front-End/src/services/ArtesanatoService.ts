@@ -17,6 +17,8 @@ export const listarArtesanatos = async (): Promise<ArtesanatoModel[]> => {
     "GET"
   );
 
+  console.log("Resposta crua da API:", response);
+
   if (!Array.isArray(response.data)) {
     throw new Error("Resposta da API não contém uma lista de artesanatos");
   }
