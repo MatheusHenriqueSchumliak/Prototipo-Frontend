@@ -23,9 +23,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
 import styles from "./style.module.css";
-import { useAuth } from "../../context/AuthContext";
+
 export function Home() {
-  const { isAuthenticated } = useAuth();
   const [artesanatos, setArtesanatos] = useState<ArtesanatoModel[]>([]);
   const [artesaos, setArtesaos] = useState<ArtesaoModel[]>([]);
   const [, setError] = useState<string | null>(null);
@@ -35,12 +34,11 @@ export function Home() {
   // ✅ Só busca se estiver autenticado
   useEffect(() => {
     const fetchArtesanatos = async () => {
-      if (!isAuthenticated) return; // ✅ ADICIONE ISSO
-      
+
       setLoading(true);
       try {
         const resposta = await listarArtesanatos();
-        const artesanatosTratados = resposta.map((item: ArtesanatoModel) => ({
+        const artesanatosTratados = resposta.map(item => ({
           ...item,
           imagens: Array.isArray(item.imagemUrl) ? item.imagemUrl : [],
         }));
@@ -55,13 +53,12 @@ export function Home() {
     };
 
     fetchArtesanatos();
-  }, [isAuthenticated]); // ✅ Adicione isAuthenticated como dependência
+  }, []);
 
   // ✅ Só busca se estiver autenticado
   useEffect(() => {
     const fetchArtesaos = async () => {
-      if (!isAuthenticated) return; // ✅ ADICIONE ISSO
-      
+
       setLoading(true);
       try {
         const resposta = await listarArtesaos();
@@ -79,7 +76,7 @@ export function Home() {
     };
 
     fetchArtesaos();
-  }, [isAuthenticated]); // ✅ Adicione isAuthenticated como dependência
+  }, []);
 
   // Pega até 3 imagens (uma de cada artesanato)
   const imagensArtesanatos = artesanatos
@@ -199,7 +196,7 @@ export function Home() {
 
         {/* Container personalizado para ListarArtesanatos */}
         <Container fluid>
-          <ListarArtesanatos isHomePage={true} maxItems={3}/>
+          <ListarArtesanatos isHomePage={true} maxItems={3} />
         </Container>
 
         {/* Categorias em destaque*/}
