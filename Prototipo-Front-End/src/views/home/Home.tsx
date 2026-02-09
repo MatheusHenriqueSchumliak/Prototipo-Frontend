@@ -38,11 +38,11 @@ export function Home() {
       setLoading(true);
       try {
         const resposta = await listarArtesanatos();
-        const artesanatosTratados = resposta.map(item => ({
-          ...item,
-          imagens: Array.isArray(item.imagemUrl) ? item.imagemUrl : [],
-        }));
-        setArtesanatos(artesanatosTratados);
+        // const artesanatosTratados = resposta.map(item => ({
+        //   ...item,
+        //   imagens: Array.isArray(item.imagemUrl) ? item.imagemUrl : [],
+        // }));
+        setArtesanatos(resposta);
         setError(null);
       } catch (erro: any) {
         console.error("Erro ao buscar os artesanatos:", erro);
