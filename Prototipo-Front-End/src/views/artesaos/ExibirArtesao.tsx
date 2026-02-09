@@ -556,11 +556,11 @@ export default function ExibirArtesao() {
           <Grid mt="md" mb="md" justify="center">
             {Array.isArray(artesanatos) && artesanatos.length > 0 ? (
               artesanatos
-                .filter((artesanato) => artesanato && artesanato.Id) // Filtra itens válidos
+                .filter((artesanato) => artesanato && artesanato.id) // Filtra itens válidos
                 .map((artesanato, index) => (
                   <Grid.Col
                     span={4}
-                    key={`artesanato-${artesanato.Id}-${index}`}
+                    key={`artesanato-${artesanato.id}-${index}`}
                   >
                     <CardArtesanato artesanato={artesanato} />
                   </Grid.Col>

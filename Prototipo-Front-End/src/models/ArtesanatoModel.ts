@@ -1,19 +1,19 @@
 export interface ArtesanatoModel {
-    Id: string;
-    UsuarioId: string;
-    ArtesaoId: string;
-    ImagemUrl: string[];
-    Imagem: (string | File)[];
-    TituloArtesanato: string;
-    DescricaoArtesanato: string;
-    SobEncomenda: boolean;    
-    AceitaEncomenda: boolean;
-    CategoriaTags: string[];
-    Preco: number;
-    QuantidadeArtesanato: number;
-    MateriaisUtilizados: string;
-    DataCriacao: Date;
-    TempoCriacaoHr: string;
+    id: string;
+    usuarioId: string;
+    artesaoId: string;
+    imagemUrl: string[];
+    imagem: (string | File)[];
+    tituloArtesanato: string;
+    descricaoArtesanato: string;
+    sobEncomenda: boolean;    
+    aceitaEncomenda: boolean;
+    categoriaTags: string[];
+    preco: number;
+    quantidadeArtesanato: number;
+    materiaisUtilizados: string;
+    dataCriacao: Date;
+    tempoCriacaoHr: string;
 }
 
 export interface ArtesanatoFormProps {

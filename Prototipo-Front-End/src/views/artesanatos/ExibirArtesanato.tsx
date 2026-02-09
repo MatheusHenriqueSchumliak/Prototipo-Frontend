@@ -45,11 +45,11 @@ export default function ExibirArtesanato() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [artesanatoId]);
 
-  const artesaoId = artesanato?.ArtesaoId;
+  const artesaoId = artesanato?.artesaoId;
 
   const numeroTelefone = artesao?.Telefone?.replace(/\D/g, ""); // remove qualquer caractere não numérico
   const numeroWhatsApp = `+55${numeroTelefone}`;
-  const mensagem = `Olá, estou interessado no artesanato "${artesanato?.TituloArtesanato}". Ele ainda está disponível?`;
+  const mensagem = `Olá, estou interessado no artesanato "${artesanato?.tituloArtesanato}". Ele ainda está disponível?`;
 
   // Primeiro useEffect: Carrega o artesanato
   useEffect(() => {
@@ -78,12 +78,12 @@ export default function ExibirArtesanato() {
 
   // Segundo useEffect: Carrega o artesão após ter o artesanato
   useEffect(() => {
-    if (!artesanato?.ArtesaoId) return;
+    if (!artesanato?.artesaoId) return;
 
     const carregarArtesao = async () => {
       try {
         const artesaoEncontrado = await buscarArtesaoPorId(
-          artesanato.ArtesaoId
+          artesanato.artesaoId
         );
         setArtesao(artesaoEncontrado);
 
@@ -118,7 +118,7 @@ export default function ExibirArtesanato() {
 
     carregarArtesanatos();
     carregarArtesao();
-  }, [artesanato?.ArtesaoId]);
+  }, [artesanato?.artesaoId]);
 
   // Renderização condicional enquanto os dados são carregados
   if (!artesanato) {
@@ -160,7 +160,7 @@ export default function ExibirArtesanato() {
             color="blue"
             size="sm"
             component={Link}
-            to={`/ExibirArtesao/id=${artesanato?.ArtesaoId}`}
+            to={`/ExibirArtesao/id=${artesanato?.artesaoId}`}
             leftSection={<TbUser size={16} />}
             disabled={!artesao}
           >
@@ -171,7 +171,7 @@ export default function ExibirArtesanato() {
         </Flex>
         {/* 2. TÍTULO DO ARTESANATO - Logo após navegação */}
         <Text component="h1" size="2rem" ta="center" mb="xl" fw={700}>
-          {artesanato.TituloArtesanato}
+          {artesanato.tituloArtesanato}
         </Text>
         {/* 3. GALERIA DE IMAGENS - Elemento visual principal */}
         <Carousel
@@ -200,7 +200,7 @@ export default function ExibirArtesanato() {
             },
           }}
         >
-          {artesanato?.ImagemUrl?.map((url, index) => (
+          {artesanato?.imagemUrl?.map((url, index) => (
             <Carousel.Slide key={index}>
               <div style={{ position: "relative" }}>
                 <Image
@@ -208,7 +208,7 @@ export default function ExibirArtesanato() {
                   id="descricaoPerfil"
                   src={url}
                   alt={`Imagem ${index + 1} do artesanato ${
-                    artesanato.TituloArtesanato
+                    artesanato.tituloArtesanato
                   }`}
                   style={{
                     width: "100%",
@@ -241,7 +241,7 @@ export default function ExibirArtesanato() {
         <Stack mb="xl">
           {/* Linha principal de informações */}
           <Group grow>
-            {artesanato.SobEncomenda && (
+            {artesanato.sobEncomenda && (
               <Paper
                 p="sm"
                 bg="yellow.0"
@@ -254,32 +254,32 @@ export default function ExibirArtesanato() {
               </Paper>
             )}
 
-            {!artesanato.SobEncomenda && (
+            {!artesanato.sobEncomenda && (
               <Paper
                 p="sm"
-                bg={artesanato.QuantidadeArtesanato > 0 ? "blue.0" : "red.0"}
+                bg={artesanato.quantidadeArtesanato > 0 ? "blue.0" : "red.0"}
                 radius="md"
                 style={{
                   border: `1px solid var(--mantine-color-${
-                    artesanato.QuantidadeArtesanato > 0 ? "blue" : "red"
+                    artesanato.quantidadeArtesanato > 0 ? "blue" : "red"
                   }-3)`,
                 }}
               >
                 <Text
                   size="sm"
                   fw={500}
-                  c={artesanato.QuantidadeArtesanato > 0 ? "blue.7" : "red.7"}
+                  c={artesanato.quantidadeArtesanato > 0 ? "blue.7" : "red.7"}
                   ta="center"
                 >
                   📦{" "}
-                  {artesanato.QuantidadeArtesanato > 0
-                    ? `${artesanato.QuantidadeArtesanato} em estoque`
+                  {artesanato.quantidadeArtesanato > 0
+                    ? `${artesanato.quantidadeArtesanato} em estoque`
                     : "Sem estoque"}
                 </Text>
               </Paper>
             )}
 
-            {artesanato.AceitaEncomenda && (
+            {artesanato.aceitaEncomenda && (
               <Paper
                 p="sm"
                 bg="orange.0"
@@ -292,7 +292,7 @@ export default function ExibirArtesanato() {
               </Paper>
             )}
 
-            {artesanato.Preco > 0 && (
+            {artesanato.preco > 0 && (
               <Paper
                 p="sm"
                 bg="green.0"
@@ -300,14 +300,14 @@ export default function ExibirArtesanato() {
                 style={{ border: "1px solid var(--mantine-color-green-3)" }}
               >
                 <Text size="sm" fw={500} c="green.7" ta="center">
-                  💰 R$ {artesanato.Preco.toFixed(2)}
+                  💰 R$ {artesanato.preco.toFixed(2)}
                 </Text>
               </Paper>
             )}
           </Group>
 
           {/* Categorias em linha separada */}
-          {artesanato.CategoriaTags && artesanato.CategoriaTags.length > 0 && (
+          {artesanato.categoriaTags && artesanato.categoriaTags.length > 0 && (
             <Box>
               <Flex justify="space-between" align="baseline" mb="xs">
                 <Text size="sm" c="dimmed" fw={500}>
@@ -319,7 +319,7 @@ export default function ExibirArtesanato() {
               </Flex>
               <Flex justify="space-between" align="center" gap="md" wrap="wrap">
                 <Flex gap="md" wrap="wrap" flex="1">
-                  {artesanato.CategoriaTags.map((tag, index) => {
+                  {artesanato.categoriaTags.map((tag, index) => {
                     return (
                       <Badge
                         key={index}
@@ -348,7 +348,7 @@ export default function ExibirArtesanato() {
               Descrição
             </Text>
             <Text size="md" ta="justify" c="dimmed">
-              {artesanato.DescricaoArtesanato}
+              {artesanato.descricaoArtesanato}
             </Text>
           </Box>
 
@@ -360,7 +360,7 @@ export default function ExibirArtesanato() {
               Materiais Utilizados
             </Text>
             <Text size="md" ta="justify" c="dimmed">
-              {artesanato.MateriaisUtilizados}
+              {artesanato.materiaisUtilizados}
             </Text>
           </Box>
         </Stack>
@@ -384,13 +384,13 @@ export default function ExibirArtesanato() {
               .filter(
                 (artesanatoItem) =>
                   artesanatoItem &&
-                  artesanatoItem.Id &&
-                  artesanatoItem.Id !== artesanato?.Id
+                  artesanatoItem.id &&
+                  artesanatoItem.id !== artesanato?.id
               ) // Filtra itens válidos
               .map((artesanatoItem, index) => (
                 <Grid.Col
                   span={4}
-                  key={`artesanato-${artesanatoItem.Id}-${index}`}
+                  key={`artesanato-${artesanatoItem.id}-${index}`}
                   style={{ display: "flex", flex: 1 }} // Adiciona flexbox e faz o card ocupar toda altura disponível
                 >
                   <CardArtesanato artesanato={artesanatoItem} />

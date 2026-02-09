@@ -26,8 +26,8 @@ export default function CardArtesanato({
 }: CardArtesanatoProps) {
 
   useEffect(() => {
-    if (!artesanato.Id || !artesanato.Id) {
-      console.warn("Artesanato ou ID inválido:", artesanato.Id);
+    if (!artesanato.id || !artesanato.id) {
+      console.warn("Artesanato ou ID inválido:", artesanato.id);
       return;
     }
   }, [artesanato]);
@@ -57,14 +57,14 @@ export default function CardArtesanato({
             indicator: styles["carousel-indicator"], // ou styles.carouselIndicator se você renomear no CSS
           }}
         >
-          {artesanato?.ImagemUrl?.map((url, index) => (
+          {artesanato?.imagemUrl?.map((url, index) => (
             <Carousel.Slide key={index}>
               <Image
                 p={isCompact ? "xs" : "sm"}
                 id="descricaoPerfil"
                 src={url}
                 alt={`Imagem ${index + 1} do artesanato ${
-                  artesanato.TituloArtesanato
+                  artesanato.tituloArtesanato
                 }`}
                 style={{
                   width: "100%",
@@ -80,25 +80,25 @@ export default function CardArtesanato({
       </Card.Section>
 
       {/* TITULO */}
-      <Tooltip label={artesanato.TituloArtesanato}>
-        <Text fw={500} ta="center" size={isCompact ? "sm" : "md"} truncate="end" title={artesanato.TituloArtesanato}>
-          {artesanato.TituloArtesanato}
+      <Tooltip label={artesanato.tituloArtesanato}>
+        <Text fw={500} ta="center" size={isCompact ? "sm" : "md"} truncate="end" title={artesanato.tituloArtesanato}>
+          {artesanato.tituloArtesanato}
         </Text>
       </Tooltip>
 
       {/* TAGS COM TOOLTIPS */}
-      {artesanato?.CategoriaTags?.length > 0 && (
+      {artesanato?.categoriaTags?.length > 0 && (
         <SimpleGrid
           cols={
             isCompact
-              ? Math.min(2, artesanato.CategoriaTags.length)
-              : artesanato.CategoriaTags.length
+              ? Math.min(2, artesanato.categoriaTags.length)
+              : artesanato.categoriaTags.length
           }
         >
           {/* Renderizar tags baseado na versão */}
           {(isCompact
-            ? artesanato.CategoriaTags.slice(0, 2)
-            : artesanato.CategoriaTags
+            ? artesanato.categoriaTags.slice(0, 2)
+            : artesanato.categoriaTags
           ).map((tag, index) => (
             <Tooltip key={index} label={`Categoria: ${tag}`} withArrow>
               <Badge
@@ -113,9 +113,9 @@ export default function CardArtesanato({
           ))}
 
           {/* Badge de "mais tags" apenas se compacto e há mais de 2 tags */}
-          {isCompact && artesanato.CategoriaTags.length > 2 && (
+          {isCompact && artesanato.categoriaTags.length > 2 && (
             <Tooltip
-              label={`Outras categorias: ${artesanato.CategoriaTags.slice(
+              label={`Outras categorias: ${artesanato.categoriaTags.slice(
                 2
               ).join(", ")}`}
               withArrow
@@ -129,7 +129,7 @@ export default function CardArtesanato({
                 color="gray"
                 style={{ cursor: "pointer" }}
               >
-                +{artesanato.CategoriaTags.length - 2}
+                +{artesanato.categoriaTags.length - 2}
               </Badge>
             </Tooltip>
           )}
@@ -140,7 +140,7 @@ export default function CardArtesanato({
       <Group justify="space-between" align="center" mt="md">
         <Group gap="xs">
           {/* Badges do lado esquerdo */}
-          {artesanato.SobEncomenda && (
+          {artesanato.sobEncomenda && (
             <Badge
               variant="outline"
               color="orange"
@@ -150,14 +150,14 @@ export default function CardArtesanato({
             </Badge>
           )}
 
-          {!artesanato.SobEncomenda &&
-            artesanato.QuantidadeArtesanato !== undefined && (
+          {!artesanato.sobEncomenda &&
+            artesanato.quantidadeArtesanato !== undefined && (
               <Badge
                 color="blue"
                 variant="outline"
                 size={isCompact ? "xs" : "sm"}
               >
-                {artesanato.QuantidadeArtesanato} unidades Disponíveis
+                {artesanato.quantidadeArtesanato} unidades Disponíveis
               </Badge>
             )}
         </Group>
@@ -178,12 +178,12 @@ export default function CardArtesanato({
             Valor:{" "}
           </Text>
           <Text component="span" fw={500} c="green">
-            R$ {artesanato.Preco},00
+            R$ {artesanato.preco},00
           </Text>
         </Box>
         <Text size="sm" c="dimmed">
           Tempo de produção:{" "}
-          {formatarTempoProdução(Number(artesanato.TempoCriacaoHr))}
+          {formatarTempoProdução(Number(artesanato.tempoCriacaoHr))}
         </Text>
       </Group>
 
@@ -204,7 +204,7 @@ export default function CardArtesanato({
   );
 
   function acessaArtesanatoComID() {
-    return `/ExibirArtesanato/${artesanato.Id}`;
+    return `/ExibirArtesanato/${artesanato.id}`;
   }
 
   function formatarTempoProdução(horas: number): string {
