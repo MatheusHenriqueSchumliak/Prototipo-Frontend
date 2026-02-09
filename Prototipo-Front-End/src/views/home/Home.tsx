@@ -42,7 +42,7 @@ export function Home() {
           ...item,
           imagens: Array.isArray(item.imagemUrl) ? item.imagemUrl : [],
         }));
-        setArtesanatos(artesanatosTratados);
+        setArtesanatos(resposta);
         setError(null);
       } catch (erro: any) {
         console.error("Erro ao buscar os artesanatos:", erro);
