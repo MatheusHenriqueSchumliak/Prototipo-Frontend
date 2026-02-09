@@ -42,7 +42,7 @@ export function Home() {
         const resposta = await listarArtesanatos();
         const artesanatosTratados = resposta.map((item: ArtesanatoModel) => ({
           ...item,
-          imagens: Array.isArray(item.ImagemUrl) ? item.ImagemUrl : [],
+          imagens: Array.isArray(item.imagemUrl) ? item.imagemUrl : [],
         }));
         setArtesanatos(artesanatosTratados);
         setError(null);
@@ -84,7 +84,7 @@ export function Home() {
   // Pega até 3 imagens (uma de cada artesanato)
   const imagensArtesanatos = artesanatos
     .slice(0, 3)
-    .map((artesanato) => artesanato.ImagemUrl?.[0])
+    .map((artesanato) => artesanato.imagemUrl?.[0])
     .filter(Boolean);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -93,7 +93,7 @@ export function Home() {
     return [
       ...new Set(
         artesanatos
-          .flatMap((artesanato) => artesanato.CategoriaTags || [])
+          .flatMap((artesanato) => artesanato.categoriaTags || [])
           .filter((tag) => tag && tag.trim() !== "")
           .map((tag) => tag.trim().toUpperCase())
       ),
