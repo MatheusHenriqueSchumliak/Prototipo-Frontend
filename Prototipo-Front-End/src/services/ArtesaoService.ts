@@ -6,20 +6,25 @@ type BuscarArtesaoResponse = {
     data: ArtesaoModel;
 };
 
-export const listarArtesaos = async (filtro?: {
-    nome?: string;
-    nichoAtuacao?: string;
-    receberEncomendas?: boolean | null;
-    enviaEncomendas?: boolean | null;
-}): Promise<ArtesaoModel[]> => {
+export const listarArtesaos = async (filtro?: { nome?: string; nichoAtuacao?: string; receberEncomendas?: boolean | null; enviaEncomendas?: boolean | null; }): Promise<ArtesaoModel[]> => {
     const params = new URLSearchParams();
+
     if (filtro?.nome) params.append("nome", filtro.nome);
     if (filtro?.nichoAtuacao) params.append("nichoAtuacao", filtro.nichoAtuacao);
     if (filtro?.receberEncomendas != null) params.append("receberEncomendas", String(filtro.receberEncomendas));
     if (filtro?.enviaEncomendas != null) params.append("enviaEncomendas", String(filtro.enviaEncomendas));
 
     const url = `Artesao/BuscarTodos?${params.toString()}`;
-    return await apiRequest<ArtesaoModel[]>(url, null, "GET");
+
+    const response = await apiRequest<ArtesaoModel[]>(url, null, "GET");
+
+    console.log("Resposta crua da API (artesãos):", response);
+
+    if (!Array.isArray(response)) {
+        throw new Error("Resposta da API não contém uma lista de artesãos");
+    }
+
+    return response;
 };
 
 export const cadastrarArtesao = async (artesao: ArtesaoModel): Promise<ArtesaoModel> => {
@@ -43,7 +48,7 @@ export const atualizaArtesao = async (id: string, artesao: FormData): Promise<Ar
     const formData = new FormData();
     if (!id) {
         throw new Error("O ID do artesão é inválido.");
-    }   
+    }
 
     // Adicionar o ID explicitamente
     formData.append('Id', id.toString());
@@ -64,7 +69,7 @@ export const atualizaArtesao = async (id: string, artesao: FormData): Promise<Ar
             formData.append(key, value.toString());
         }
     });
-    
+
     // Faz a requisição para atualizar o artesão
     try {
         console.log("Artesão enviado para a API:", JSON.stringify(formData, null, 2));
