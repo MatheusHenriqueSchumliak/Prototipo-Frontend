@@ -46,21 +46,21 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
   const MySwal = withReactContent(Swal);
   const [artesanatoState, setArtesanatoState] = useState<ArtesanatoModel>({
     ...artesanato,
-    Id: artesanatoId,
-    UsuarioId: usuarioId || "00cb252e-0310-41fe-8014-3549e7fa2b3f",
-    ArtesaoId: artesaoId,
-    ImagemUrl: artesanato.ImagemUrl || [],
-    Imagem: artesanato.Imagem || [],
-    SobEncomenda: artesanato.SobEncomenda || false,
-    AceitaEncomenda: artesanato.AceitaEncomenda || false,
-    TituloArtesanato: artesanato.TituloArtesanato || "",
-    CategoriaTags: artesanato.CategoriaTags || [],
-    DescricaoArtesanato: artesanato.DescricaoArtesanato || "",
-    MateriaisUtilizados: artesanato.MateriaisUtilizados || "",
-    Preco: artesanato.Preco || 0,
-    QuantidadeArtesanato: artesanato.QuantidadeArtesanato || 0,
-    DataCriacao: artesanato.DataCriacao || new Date(),
-    TempoCriacaoHr: getHoraAtual(),
+    id  : artesanatoId,
+    usuarioId: usuarioId || "00cb252e-0310-41fe-8014-3549e7fa2b3f",
+    artesaoId: artesaoId,
+    imagemUrl: artesanato.imagemUrl || [],
+    imagem: artesanato.imagem || [],
+    sobEncomenda: artesanato.sobEncomenda || false,
+    aceitaEncomenda: artesanato.aceitaEncomenda || false,
+    tituloArtesanato: artesanato.tituloArtesanato || "",
+    categoriaTags: artesanato.categoriaTags || [],
+    descricaoArtesanato: artesanato.descricaoArtesanato || "",
+    materiaisUtilizados: artesanato.materiaisUtilizados || "",
+    preco: artesanato.preco || 0,
+    quantidadeArtesanato: artesanato.quantidadeArtesanato || 0,
+    dataCriacao: artesanato.dataCriacao || new Date(),
+    tempoCriacaoHr: getHoraAtual(),
   });
 
   const [artesaoSelecionado, setArtesaoSelecionado] =
@@ -142,11 +142,11 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
             (file) => file !== null
           ) as File[];
           // Atualiza o estado com todas as imagens válidas
-          setArtesanatoState({ ...artesanatoState, Imagem: validFiles });
+          setArtesanatoState({ ...artesanatoState, imagem: validFiles });
         })
         .catch((error) => console.error("Erro ao carregar imagens:", error));
     } else {
-      setArtesanatoState({ ...artesanatoState, ImagemUrl: [] }); // Define como array vazio se não houver arquivos
+      setArtesanatoState({ ...artesanatoState, imagemUrl: [] }); // Define como array vazio se não houver arquivos
     }
   };
 
@@ -209,7 +209,7 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
         return;
       }
 
-      if (!artesanatoState.Imagem || artesanatoState.Imagem.length === 0) {
+      if (!artesanatoState.imagem || artesanatoState.imagem.length === 0) {
         MySwal.fire({
           title: <strong>Atenção!</strong>,
           html: (
@@ -225,8 +225,8 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
 
       const artesanatoParaEnvio: ArtesanatoModel = {
         ...artesanatoState,
-        ArtesaoId: artesaoSelecionado,
-        DataCriacao: new Date(),
+        artesaoId: artesaoSelecionado,
+        dataCriacao: new Date(),
       };
 
       const artesanatoCadastrado = await cadastrarArtesanato(
@@ -239,7 +239,7 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
         icon: "success",
         confirmButtonText: "Ok",
       }).then(() => {
-        navigate(`/ExibirArtesanato/${artesanatoCadastrado.Id}`);
+        navigate(`/ExibirArtesanato/${artesanatoCadastrado.id}`);
       });
     } catch (error: any) {
       if (error.message) {
@@ -331,9 +331,9 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
               <Center>
                 <Group mt="md">
                   <SimpleGrid cols={4} spacing="sm">
-                    {Array.isArray(artesanatoState.Imagem) &&
-                    artesanatoState.Imagem.length > 0 ? (
-                      artesanatoState.Imagem.map((img, index) => {
+                    {Array.isArray(artesanatoState.imagem) &&
+                    artesanatoState.imagem.length > 0 ? (
+                      artesanatoState.imagem.map((img, index) => {
                         const src =
                           img instanceof File ? URL.createObjectURL(img) : img;
                         return (
@@ -360,7 +360,7 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
                   id="SobEncomenda"
                   mt="sm"
                   mb="sm"
-                  checked={artesanatoState.SobEncomenda}
+                  checked={artesanatoState.sobEncomenda}
                   onChange={(e) =>
                     handleChange(e.target.checked, "SobEncomenda")
                   }
@@ -370,7 +370,7 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
                   id="AceitaEncomenda"
                   mt="sm"
                   mb="sm"
-                  checked={artesanatoState.AceitaEncomenda}
+                  checked={artesanatoState.aceitaEncomenda}
                   onChange={(e) =>
                     handleChange(e.target.checked, "AceitaEncomenda")
                   }
@@ -422,7 +422,7 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
                     radius="md"
                     label="Quantidade:"
                     placeholder={
-                      artesanatoState.SobEncomenda
+                      artesanatoState.sobEncomenda
                         ? "Trabalho sob encomenda"
                         : "Quantidade possui em estoque"
                     }
@@ -430,8 +430,8 @@ const ArtesanatoForm: React.FC<ArtesanatoFormProps> = ({
                     onChange={(value) =>
                       handleChange(value, "QuantidadeArtesanato")
                     }
-                    value={artesanatoState.QuantidadeArtesanato || undefined}
-                    disabled={artesanatoState.SobEncomenda}
+                    value={artesanatoState.quantidadeArtesanato || undefined}
+                    disabled={artesanatoState.sobEncomenda}
                   />
                 </Grid.Col>
                 <Grid.Col span={2}>

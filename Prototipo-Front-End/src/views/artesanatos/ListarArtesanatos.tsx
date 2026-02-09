@@ -67,7 +67,7 @@ export default function ListarArtesanatos({
 
         const artesanatosTratados = resposta.map((item: ArtesanatoModel) => ({
           ...item,
-          Imagem: Array.isArray(item.Imagem) ? item.Imagem : [],
+          Imagem: Array.isArray(item.imagem) ? item.imagem : [],
         }));
 
         setArtesanatos(artesanatosTratados);
@@ -75,15 +75,15 @@ export default function ListarArtesanatos({
 
         // Extrair dados únicos para os selects
         const nomesArtesanatos = [
-          ...new Set(artesanatosTratados.map((item) => item.TituloArtesanato)),
+          ...new Set(artesanatosTratados.map((item) => item.tituloArtesanato)),
         ];
         const categorias = [
           ...new Set(
             artesanatosTratados
               .flatMap((item) =>
-                Array.isArray(item.CategoriaTags)
-                  ? item.CategoriaTags
-                  : [item.CategoriaTags]
+                Array.isArray(item.categoriaTags)
+                  ? item.categoriaTags
+                  : [item.categoriaTags]
               )
               .filter(Boolean)
           ),
@@ -126,7 +126,7 @@ export default function ListarArtesanatos({
     // Filtro por nome do artesão (assumindo que existe um campo NomeArtesao ou similar)
     if (filtros.nomeArtesao.trim()) {
       resultado = resultado.filter((item) =>
-        (item.TituloArtesanato || "")
+        (item.tituloArtesanato || "")
           .toLowerCase()
           .includes(filtros.nomeArtesao.toLowerCase())
       );
@@ -135,7 +135,7 @@ export default function ListarArtesanatos({
     // Filtro por nome do artesanato
     if (filtros.nomeArtesanato.trim()) {
       resultado = resultado.filter((item) =>
-        item.TituloArtesanato.toLowerCase().includes(
+        item.tituloArtesanato.toLowerCase().includes(
           filtros.nomeArtesanato.toLowerCase()
         )
       );
@@ -144,35 +144,35 @@ export default function ListarArtesanatos({
     // Filtro por categoria
     if (filtros.categoriaArtesanato && filtros.categoriaArtesanato !== "") {
       resultado = resultado.filter((item) =>
-        Array.isArray(item.CategoriaTags)
-          ? item.CategoriaTags.includes(filtros.categoriaArtesanato)
-          : item.CategoriaTags === filtros.categoriaArtesanato
+        Array.isArray(item.categoriaTags)
+          ? item.categoriaTags.includes(filtros.categoriaArtesanato)
+          : item.categoriaTags === filtros.categoriaArtesanato
       );
     }
 
     // Filtro por valor mínimo
     if (filtros.valorMinimo !== null && filtros.valorMinimo > 0) {
       resultado = resultado.filter(
-        (item) => item.Preco >= filtros.valorMinimo!
+        (item) => item.preco >= filtros.valorMinimo!
       );
     }
 
     // Filtro por valor máximo
     if (filtros.valorMaximo !== null && filtros.valorMaximo > 0) {
       resultado = resultado.filter(
-        (item) => item.Preco <= filtros.valorMaximo!
+        (item) => item.preco <= filtros.valorMaximo!
       );
     }
 
     // Filtro somente encomendas (assumindo que existe um campo TipoVenda ou similar)
     if (filtros.somenteEncomendas) {
-      resultado = resultado.filter((item) => item.SobEncomenda == true);
+      resultado = resultado.filter((item) => item.sobEncomenda == true);
     }
 
     // Filtro com estoque (assumindo que existe um campo Estoque)
     if (filtros.comEstoque) {
       resultado = resultado.filter(
-        (item) => (item.QuantidadeArtesanato || 0) > 0
+        (item) => (item.quantidadeArtesanato || 0) > 0
       );
     }
 
@@ -237,7 +237,7 @@ export default function ListarArtesanatos({
     return (
       <SimpleGrid cols={getColumns()} spacing={getSpacing()}>
         {artesanatosFiltrados.map((artesanato) => (
-          <CardArtesanato key={artesanato.Id} artesanato={artesanato} />
+          <CardArtesanato key={artesanato.id} artesanato={artesanato} />
         ))}
       </SimpleGrid>
     );
