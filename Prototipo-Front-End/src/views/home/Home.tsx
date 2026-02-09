@@ -62,10 +62,10 @@ export function Home() {
       setLoading(true);
       try {
         const resposta = await listarArtesaos();
-        const artesaosTratados = resposta.map((item: ArtesaoModel) => ({
-          ...item,
-        }));
-        setArtesaos(artesaosTratados);
+        // const artesaosTratados = resposta.map((item: ArtesaoModel) => ({
+        //   ...item,
+        // }));
+        setArtesaos(resposta);
         setError(null);
       } catch (erro: any) {
         console.error("Erro ao buscar os artesãos:", erro);
