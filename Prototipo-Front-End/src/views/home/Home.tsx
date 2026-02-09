@@ -1,34 +1,22 @@
-import { Link, useNavigate } from "react-router-dom";
-import ListarArtesanatos from "../artesanatos/ListarArtesanatos";
-import {
-  Container,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Image,
-  Text,
-  SimpleGrid,
-  Badge,
-  Avatar,
-  Stack,
-  Title,
-  Tooltip,
-} from "@mantine/core";
+import { Container, Button, Card, Flex, Group, Image, Text, SimpleGrid, Badge, Avatar, Stack, Title, Tooltip, } from "@mantine/core";
 import { listarArtesanatos } from "../../services/ArtesanatoService";
+import ListarArtesanatos from "../artesanatos/ListarArtesanatos";
 import { ArtesanatoModel } from "../../models/ArtesanatoModel";
 import { listarArtesaos } from "../../services/ArtesaoService";
 import { ArtesaoModel } from "../../models/ArtesaoModel";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
 import styles from "./style.module.css";
 
 export function Home() {
-  const [artesanatos, setArtesanatos] = useState<ArtesanatoModel[]>([]);
   const [artesaos, setArtesaos] = useState<ArtesaoModel[]>([]);
+  const [artesanatos, setArtesanatos] = useState<ArtesanatoModel[]>([]);
+
   const [, setError] = useState<string | null>(null);
   const [, setLoading] = useState<boolean>(true);
+
   const navigate = useNavigate();
 
   // ✅ Só busca se estiver autenticado
@@ -79,10 +67,7 @@ export function Home() {
   }, []);
 
   // Pega até 3 imagens (uma de cada artesanato)
-  const imagensArtesanatos = artesanatos
-    .slice(0, 3)
-    .map((artesanato) => artesanato.imagemUrl?.[0])
-    .filter(Boolean);
+  const imagensArtesanatos = artesanatos.slice(0, 3).map((artesanato) => artesanato.imagemUrl?.[0]).filter(Boolean);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -95,11 +80,13 @@ export function Home() {
           .map((tag) => tag.trim().toUpperCase())
       ),
     ].sort();
-  }, [artesanatos]);
+  },
+    [artesanatos]
+  );
 
   // Função para navegar para o artesão
   const handleArtesaoClick = (artesaoId: string) => {
-    navigate(`/ExibirArtesao/${artesaoId}`);
+    navigate(`/exibir-artesao/${artesaoId}`);
   };
 
   return (

@@ -31,25 +31,25 @@ export default function RootLayout() {
       title: "Artesãos",
       items: [
         ...(isAuthenticated
-          ? [{ title: "Cadastrar", link: "/CadastrarArtesao" }]
+          ? [{ title: "Cadastrar", link: "/cadastrar-artesao" }]
           : []),
-        { title: "Ver Todos", link: "/ListarArtesaos" },
+        { title: "Ver Todos", link: "/listar-artesaos" },
       ],
     },
     {
       title: "Artesanatos",
       items: [
         ...(isAuthenticated
-          ? [{ title: "Cadastrar", link: "/CadastrarArtesanato" }]
+          ? [{ title: "Cadastrar", link: "/cadastrar-artesanato" }]
           : []),
-        { title: "Ver Todos", link: "/ListarArtesanatos" },
+        { title: "Ver Todos", link: "/listar-artesanatos" },
       ],
     },
     {
       title: "Conta",
       items: [
-        ...(!isAuthenticated ? [{ title: "Login", link: "/Login" }] : []),
-        ...(isAuthenticated ? [{ title: "Logout", link: "/Logout" }] : []),
+        ...(!isAuthenticated ? [{ title: "Login", link: "/login" }] : []),
+        ...(isAuthenticated ? [{ title: "Logout", link: "/logout" }] : []),
       ],
     },
   ];
@@ -104,11 +104,11 @@ export default function RootLayout() {
                 </Menu.Target>
                 <Menu.Dropdown>
                   {isAuthenticated && (
-                    <Menu.Item component={Link} to="/CadastrarArtesao">
+                    <Menu.Item component={Link} to="/cadastrar-artesao">
                       Cadastrar
                     </Menu.Item>
                   )}
-                  <Menu.Item component={Link} to="/ListarArtesaos">
+                  <Menu.Item component={Link} to="/listar-artesaos">
                     Ver Todos
                   </Menu.Item>
                 </Menu.Dropdown>
@@ -122,11 +122,11 @@ export default function RootLayout() {
                 </Menu.Target>
                 <Menu.Dropdown>
                   {isAuthenticated && (
-                    <Menu.Item component={Link} to="/CadastrarArtesanato">
+                    <Menu.Item component={Link} to="/cadastrar-artesanato">
                       Cadastrar
                     </Menu.Item>
                   )}
-                  <Menu.Item component={Link} to="/ListarArtesanatos">
+                  <Menu.Item component={Link} to="/listar-artesanatos">
                     Ver Todos
                   </Menu.Item>
                 </Menu.Dropdown>
@@ -142,12 +142,12 @@ export default function RootLayout() {
                   </Menu.Target>
                   <Menu.Dropdown>
                     {!isAuthenticated && (
-                      <Menu.Item component={Link} to="/Login">
+                      <Menu.Item component={Link} to="/login">
                         Login
                       </Menu.Item>
                     )}
                     {isAuthenticated && (
-                      <Menu.Item component={Link} to="/Logout">
+                      <Menu.Item component={Link} to="/logout">
                         Logout
                       </Menu.Item>
                     )}
