@@ -3,7 +3,6 @@ import axios from "axios";
 // Cria a instância
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: false, // pode deixar como está se não usa cookies
 });
 
 // Interceptor Global de Resposta
