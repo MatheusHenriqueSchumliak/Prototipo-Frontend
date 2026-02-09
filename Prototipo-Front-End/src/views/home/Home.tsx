@@ -128,7 +128,7 @@ export function Home() {
                     lineHeight: 1.2,
                   }}
                 >
-                  Bem-vindo à Galeria Artesanal
+                  Bem-vindo(a) à Galeria Artesanal
                 </Title>
                 <Text
                   size="lg"
