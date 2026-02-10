@@ -57,7 +57,7 @@ export default function ListarArtesaos() {
     const nichosUnicos = Array.from(
       new Set(
         artesaos
-          .map((artesao) => artesao.NichoAtuacao)
+          .map((artesao) => artesao.nichoAtuacao)
           .filter((nicho): nicho is string => nicho !== undefined && nicho !== null && nicho !== "")
       )
     );
@@ -142,8 +142,8 @@ export default function ListarArtesaos() {
           <Text>Nenhum artesão encontrado com esse nome.</Text>
         ) : (
           <SimpleGrid cols={2}>
-            {artesaos.map((artesao) => (
-              <CardArtesao key={artesao.Id} artesao={artesao} />
+            {artesaos.map((artesao, index) => (
+              <CardArtesao key={artesao.id || index} artesao={artesao} />
             ))}
           </SimpleGrid>
         )}

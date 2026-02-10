@@ -1,31 +1,31 @@
 export interface ArtesaoModel {
-    Id?: string;
-    UsuarioId?: string;
-    NomeCompleto?: string;
-    Idade?: number;
-    FotoUrl?: string;
-    Imagem?: File | null;
-    NomeArtesao?: string;
-    DescricaoPerfil?: string;
-    Telefone?: string;
-    WhatsApp?: string;
-    Email?: string;
-    Instagram?: string;
-    Facebook?: string;
-    NichoAtuacao?: string;
-    ReceberEncomendas?: boolean;
-    EnviaEncomendas?: boolean;
-    LocalFisico?: boolean;
-    FeiraMunicipal?: boolean;
-    CEP?: string;
-    Estado?: string;
-    Cidade?: string;
-    Rua?: string;
-    Bairro?: string;
-    Complemento?: string;
-    Numero?: string;
-    SemNumero?: boolean;
-    DataCadastro?: Date;
+    id?: string;
+    usuarioId?: string;
+    nomeCompleto?: string;
+    idade?: number;
+    fotoUrl?: string;
+    imagem?: File | null;
+    nomeArtesao?: string;
+    descricaoPerfil?: string;
+    telefone?: string;
+    whatsApp?: string;
+    email?: string;
+    instagram?: string;
+    facebook?: string;
+    nichoAtuacao?: string;
+    receberEncomendas?: boolean;
+    enviaEncomendas?: boolean;
+    localFisico?: boolean;
+    feiraMunicipal?: boolean;
+    cep?: string;
+    estado?: string;
+    cidade?: string;
+    rua?: string;
+    bairro?: string;
+    complemento?: string;
+    numero?: string;
+    semNumero?: boolean;
+    dataCadastro?: Date;
 }
 
 export interface ArtesaoFormProps {
