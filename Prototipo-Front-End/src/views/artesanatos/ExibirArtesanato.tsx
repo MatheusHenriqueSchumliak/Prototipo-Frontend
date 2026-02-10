@@ -47,7 +47,7 @@ export default function ExibirArtesanato() {
 
   const artesaoId = artesanato?.artesaoId;
 
-  const numeroTelefone = artesao?.Telefone?.replace(/\D/g, ""); // remove qualquer caractere não numérico
+  const numeroTelefone = artesao?.telefone?.replace(/\D/g, ""); // remove qualquer caractere não numérico
   const numeroWhatsApp = `+55${numeroTelefone}`;
   const mensagem = `Olá, estou interessado no artesanato "${artesanato?.tituloArtesanato}". Ele ainda está disponível?`;
 
@@ -165,7 +165,7 @@ export default function ExibirArtesanato() {
             disabled={!artesao}
           >
             {artesao
-              ? `Perfil de ${artesao?.NomeArtesao!.split(" ")[0]}`
+              ? `Perfil de ${artesao?.nomeArtesao!.split(" ")[0]}`
               : "Carregando perfil..."}
           </Button>
         </Flex>

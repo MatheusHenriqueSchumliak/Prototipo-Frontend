@@ -34,37 +34,37 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
 
   const [artesaoState, setArtesaoState] = useState<ArtesaoModel>({
     ...artesao,
-    Id: String(artesao?.Id || "00000000-0000-0000-0000-000000000001"),
-    NomeArtesao: artesao?.NomeArtesao || "",
-    NomeCompleto: artesao?.NomeCompleto || "",
-    Idade: artesao?.Idade || 0,
-    Telefone: artesao?.Telefone || "",
-    WhatsApp: artesao?.WhatsApp || "",
-    Email: artesao?.Email || "",
-    Instagram: artesao?.Instagram || "",
-    Facebook: artesao?.Facebook || "",
-    NichoAtuacao: artesao?.NichoAtuacao || "",
-    DescricaoPerfil: artesao?.DescricaoPerfil || "",
-    UsuarioId: usuarioId || "00cb252e-0310-41fe-8014-3549e7fa2b3f",
-    ReceberEncomendas: artesao?.ReceberEncomendas || false,
-    LocalFisico: artesao?.LocalFisico || false,
-    FeiraMunicipal: artesao?.FeiraMunicipal || false,
-    EnviaEncomendas: artesao?.EnviaEncomendas || false,
-    Imagem: artesao?.Imagem || null,
-    FotoUrl: artesao?.FotoUrl || "",
-    CEP: artesao?.CEP || "",
-    Estado: artesao?.Estado || "",
-    Cidade: artesao?.Cidade || "",
-    Rua: artesao?.Rua || "",
-    Bairro: artesao?.Bairro || "",
-    Complemento: artesao?.Complemento || "",
-    Numero: artesao?.Numero || "",
-    SemNumero: artesao?.SemNumero || false,
-    DataCadastro: artesao?.DataCadastro || new Date(),
+    id: String(artesao?.id || "00000000-0000-0000-0000-000000000001"),
+    nomeArtesao: artesao?.nomeArtesao || "",
+    nomeCompleto: artesao?.nomeCompleto || "",
+    idade: artesao?.idade || 0,
+    telefone: artesao?.telefone || "",
+    whatsApp: artesao?.whatsApp || "",
+    email: artesao?.email || "",
+    instagram: artesao?.instagram || "",
+    facebook: artesao?.facebook || "",
+    nichoAtuacao: artesao?.nichoAtuacao || "",
+    descricaoPerfil: artesao?.descricaoPerfil || "",
+    usuarioId: usuarioId || "00cb252e-0310-41fe-8014-3549e7fa2b3f",
+    receberEncomendas: artesao?.receberEncomendas || false,
+    localFisico: artesao?.localFisico || false,
+    feiraMunicipal: artesao?.feiraMunicipal || false,
+    enviaEncomendas: artesao?.enviaEncomendas || false,
+    imagem: artesao?.imagem || null,
+    fotoUrl: artesao?.fotoUrl || "",
+    cep: artesao?.cep || "",
+    estado: artesao?.estado || "",
+    cidade: artesao?.cidade || "",
+    rua: artesao?.rua || "",
+    bairro: artesao?.bairro || "",
+    complemento: artesao?.complemento || "",
+    numero: artesao?.numero || "",
+    semNumero: artesao?.semNumero || false,
+    dataCadastro: artesao?.dataCadastro || new Date(),
   });
 
   const handleFileChange = (file: File | null) => {
-    setArtesaoState((prevState) => ({ ...prevState, Imagem: file }));
+    setArtesaoState((prevState) => ({ ...prevState, imagem: file }));
   };
 
   const handleChange = (
@@ -115,7 +115,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
   // Função que busca as informações do CEP
   const buscarCep = async () => {
     // Remove traços e espaços do CEP para garantir o formato correto
-    const cep = artesaoState.CEP?.replace(/\D/g, "");
+    const cep = artesaoState.cep?.replace(/\D/g, "");
 
     if (!cep || cep.length !== 8) {
       alert("Digite um CEP válido com 8 números.");
@@ -124,7 +124,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
 
     try {
       const response = await fetch(
-        `https://viacep.com.br/ws/${artesaoState.CEP}/json/`
+        `https://viacep.com.br/ws/${artesaoState.cep}/json/`
       );
       const data = await response.json();
 
@@ -154,18 +154,18 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
   };
 
   useEffect(() => {
-    if (artesaoState.Imagem instanceof File) {
-      const url = URL.createObjectURL(artesaoState.Imagem);
+    if (artesaoState.imagem instanceof File) {
+      const url = URL.createObjectURL(artesaoState.imagem);
       setFotoUrl(url); // Atualiza apenas a URL da imagem
       return () => URL.revokeObjectURL(url); // Revoga a URL quando não for mais necessário
     }
-  }, [artesaoState.Imagem]);
+  }, [artesaoState.imagem]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      if (!artesaoState.Imagem) {
+      if (!artesaoState.imagem) {
         MySwal.fire({
           title: "Atenção!",
           html: "Por favor, adicione pelo menos uma imagem do artesão.",
@@ -177,17 +177,17 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
 
       // ✅ Verificar se é atualização ou cadastro
       const isUpdate =
-        artesaoState.Id &&
-        artesaoState.Id !== "00000000-0000-0000-0000-000000000000" &&
-        artesaoState.Id !== "00000000-0000-0000-0000-000000000001";
+        artesaoState.id &&
+        artesaoState.id !== "00000000-0000-0000-0000-000000000000" &&
+        artesaoState.id !== "00000000-0000-0000-0000-000000000001";
 
       let artesaoResultado: ArtesaoModel;
 
       if (isUpdate) {
         // ✅ ATUALIZAÇÃO - Passa o objeto diretamente
-        console.log("🔄 Atualizando artesão com ID:", artesaoState.Id);
+        console.log("🔄 Atualizando artesão com ID:", artesaoState.id);
 
-        artesaoResultado = await atualizaArtesao(artesaoState.Id!, artesaoState as unknown as FormData);
+        artesaoResultado = await atualizaArtesao(artesaoState.id!, artesaoState as unknown as FormData);
 
         MySwal.fire({
           title: "Sucesso!",
@@ -195,13 +195,13 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
           icon: "success",
           confirmButtonText: "Ok",
         }).then(() => {
-          navigate(`/ExibirArtesao/${artesaoState.Id}`);
+          navigate(`/ExibirArtesao/${artesaoState.id}`);
         });
       } else {
         // ✅ CADASTRO - Remove Id e passa o objeto
         console.log("➕ Cadastrando novo artesão");
 
-        const { Id, ...artesaoSemId } = artesaoState;
+        const { id, ...artesaoSemId } = artesaoState;
 
         artesaoResultado = await cadastrarArtesao(artesaoSemId as ArtesaoModel);
 
@@ -211,7 +211,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
           icon: "success",
           confirmButtonText: "Ok",
         }).then(() => {
-          navigate(`/ExibirArtesao/${artesaoResultado.Id}`);
+          navigate(`/ExibirArtesao/${artesaoResultado.id}`);
         });
       }
     } catch (error: any) {
@@ -292,18 +292,18 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                       alignItems: "center",
                     }}
                   >
-                    {artesaoState.Imagem && (
+                    {artesaoState.imagem && (
                       <Avatar
                         variant="default"
                         radius="xl"
                         size={100} // Tamanho fixo, mas você pode ajustar conforme a necessidade
                         //src={URL.createObjectURL(artesao.imagem)}
                         src={
-                          artesaoState.Imagem instanceof File
-                            ? URL.createObjectURL(artesaoState.Imagem)
-                            : Array.isArray(artesaoState.FotoUrl)
-                              ? artesaoState.FotoUrl // Usa o primeiro valor se for um array
-                              : artesaoState.FotoUrl
+                          artesaoState.imagem instanceof File
+                            ? URL.createObjectURL(artesaoState.imagem)
+                            : Array.isArray(artesaoState.fotoUrl)
+                              ? artesaoState.fotoUrl // Usa o primeiro valor se for um array
+                              : artesaoState.fotoUrl
                         }
                         alt="Imagem do artesão"
                         style={{
@@ -336,17 +336,17 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   label="Nome Completo:"
                   placeholder="Nome Completo"
                   type="text"
-                  id="NomeCompleto"
-                  value={artesaoState.NomeCompleto}
-                  onChange={(e) => handleChange(e.target.value, "NomeCompleto")}
+                  id="nomeCompleto"
+                  value={artesaoState.nomeCompleto}
+                  onChange={(e) => handleChange(e.target.value, "nomeCompleto")}
                   required
                 />
                 <InputBase
                   w={300}
                   radius="md"
                   label="Idade:"
-                  id="Idade"
-                  value={artesaoState.Idade || ""}
+                  id="idade"
+                  value={artesaoState.idade || ""}
                   placeholder="21"
                   onChange={handleInputChange}
                   maxLength={2}
@@ -359,8 +359,8 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   placeholder="Nome do perfil"
                   type="text"
                   id="NomeArtesao"
-                  value={artesaoState.NomeArtesao}
-                  onChange={(e) => handleChange(e.target.value, "NomeArtesao")}
+                  value={artesaoState.nomeArtesao}
+                  onChange={(e) => handleChange(e.target.value, "nomeArtesao")}
                   required
                 />
                 <InputBase
@@ -368,7 +368,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   radius="md"
                   label="Telefone:"
                   id="Telefone"
-                  value={artesaoState.Telefone || ""}
+                  value={artesaoState.telefone || ""}
                   placeholder="(99) 9 9999-9999"
                   onChange={handleInputChange}
                   maxLength={15}
@@ -379,7 +379,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   radius="md"
                   label="Whats App:"
                   id="WhatsApp"
-                  value={artesaoState.WhatsApp || ""}
+                  value={artesaoState.whatsApp || ""}
                   placeholder="(99) 9 9999-9999"
                   onChange={handleInputChange}
                   maxLength={15}
@@ -390,7 +390,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   radius="md"
                   label="E-mail:"
                   id="Email"
-                  value={artesaoState.Email || ""}
+                  value={artesaoState.email || ""}
                   placeholder="email@exemplo.com"
                   onChange={handleInputChange}
                   maxLength={50}
@@ -401,7 +401,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   radius="md"
                   label="Instagram:"
                   id="Instagram"
-                  value={artesaoState.Instagram || ""}
+                  value={artesaoState.instagram || ""}
                   placeholder="https://www.instagram.com/usuario"
                   onChange={handleInputChange}
                   maxLength={50}
@@ -412,7 +412,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   radius="md"
                   label="Facebook:"
                   id="Facebook"
-                  value={artesaoState.Facebook || ""}
+                  value={artesaoState.facebook || ""}
                   placeholder="https://www.facebook.com/usuario"
                   onChange={handleInputChange}
                   maxLength={50}
@@ -424,7 +424,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                 radius="md"
                 label="Nicho de Atuacao:"
                 id="NichoAtuacao"
-                value={artesaoState.NichoAtuacao || ""}
+                value={artesaoState.nichoAtuacao || ""}
                 placeholder="Nicho de atuação"
                 onChange={handleInputChange}
                 maxLength={50}
@@ -435,10 +435,10 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                 resize="vertical"
                 placeholder="Descreva sobre a sua marca. min 500 caracteres"
                 id="DescricaoPerfil"
-                value={artesaoState.DescricaoPerfil || ""}
+                value={artesaoState.descricaoPerfil || ""}
                 rows={5}
                 onChange={(e) =>
-                  handleChange(e.target.value, "DescricaoPerfil")
+                  handleChange(e.target.value, "descricaoPerfil")
                 }
                 required
               />
@@ -448,18 +448,18 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     p="md"
                     id="ReceberEncomendas"
                     label="Aceito receber encomendas."
-                    checked={artesaoState.ReceberEncomendas}
+                    checked={artesaoState.receberEncomendas}
                     onChange={(e) =>
-                      handleChange(e.target.checked, "ReceberEncomendas")
+                      handleChange(e.target.checked, "receberEncomendas")
                     }
                   />
                   <Checkbox
                     p="md"
                     id="EnviaEncomendas"
                     label="Aceita enviar encomendas."
-                    checked={artesaoState.EnviaEncomendas}
+                    checked={artesaoState.enviaEncomendas}
                     onChange={(e) =>
-                      handleChange(e.target.checked, "EnviaEncomendas")
+                      handleChange(e.target.checked, "enviaEncomendas")
                     }
                   />
                 </SimpleGrid>
@@ -471,17 +471,17 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                   <Checkbox
                     label="Possui local físico"
                     id="LocalFisico"
-                    checked={artesaoState.LocalFisico}
+                    checked={artesaoState.localFisico}
                     onChange={(e) =>
-                      handleChange(e.target.checked, "LocalFisico")
+                      handleChange(e.target.checked, "localFisico")
                     }
                   />
                   <Checkbox
                     label="Feira Municipal"
                     id="FeiraMunicipal"
-                    checked={artesaoState.FeiraMunicipal}
+                    checked={artesaoState.feiraMunicipal}
                     onChange={(e) =>
-                      handleChange(e.target.checked, "FeiraMunicipal")
+                      handleChange(e.target.checked, "feiraMunicipal")
                     }
                   />
                 </SimpleGrid>
@@ -494,9 +494,9 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     placeholder="00000-000"
                     type="text"
                     id="CEP"
-                    value={artesaoState.CEP || ""}
+                    value={artesaoState.cep || ""}
                     onChange={(e) =>
-                      setArtesaoState({ ...artesaoState, CEP: e.target.value })
+                      setArtesaoState({ ...artesaoState, cep: e.target.value })
                     }
                     onBlur={buscarCep} // Chama a função ao perder o foco
                   />
@@ -508,9 +508,9 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="Estado:"
                     placeholder="Selecione"
                     type="text"
-                    id="Estado"
-                    value={artesaoState.Estado || ""}
-                    onChange={(e) => handleChange(e.target.value, "Estado")}
+                    id="estado"
+                    value={artesaoState.estado || ""}
+                    onChange={(e) => handleChange(e.target.value, "estado")}
                   />
                   <TextInput
                     ml="-130px"
@@ -520,9 +520,9 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="Cidade:"
                     placeholder="Selecione"
                     type="text"
-                    id="Cidade"
-                    value={artesaoState.Cidade || ""}
-                    onChange={(e) => handleChange(e.target.value, "Cidade")}
+                    id="cidade"
+                    value={artesaoState.cidade || ""}
+                    onChange={(e) => handleChange(e.target.value, "cidade")}
                   />
                 </SimpleGrid>
                 <SimpleGrid cols={5} mt={5} spacing="xs">
@@ -533,9 +533,9 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="Rua:"
                     placeholder="Rua lorem ipsum"
                     type="text"
-                    id="Rua"
-                    value={artesaoState.Rua || ""}
-                    onChange={(e) => handleChange(e.target.value, "Rua")}
+                    id="rua"
+                    value={artesaoState.rua || ""}
+                    onChange={(e) => handleChange(e.target.value, "rua")}
                   />
                   <TextInput
                     w={150}
@@ -544,9 +544,9 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="Bairro:"
                     placeholder="Bairro exemplo x"
                     type="text"
-                    id="Bairro"
-                    value={artesaoState.Bairro || ""}
-                    onChange={(e) => handleChange(e.target.value, "Bairro")}
+                    id="bairro"
+                    value={artesaoState.bairro || ""}
+                    onChange={(e) => handleChange(e.target.value, "bairro")}
                   />
                   <TextInput
                     w={150}
@@ -554,10 +554,10 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="Complemento:"
                     placeholder="Apto x ou "
                     type="text"
-                    id="Complemento"
-                    value={artesaoState.Complemento || ""}
+                    id="complemento"
+                    value={artesaoState.complemento || ""}
                     onChange={(e) =>
-                      handleChange(e.target.value, "Complemento")
+                      handleChange(e.target.value, "complemento")
                     }
                   />
                   <TextInput
@@ -566,18 +566,18 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                     label="N°:"
                     placeholder="0000"
                     type="text"
-                    id="Numero"
-                    value={artesaoState.Numero || ""}
-                    onChange={(e) => handleChange(e.target.value, "Numero")}
+                    id="numero"
+                    value={artesaoState.numero || ""}
+                    onChange={(e) => handleChange(e.target.value, "numero")}
                   />
                   <Checkbox
                     p="xl"
                     ml="-100px"
                     label="Sem N°"
-                    id="SemNumero"
-                    checked={artesaoState.SemNumero}
+                    id="semNumero"
+                    checked={artesaoState.semNumero}
                     onChange={(e) =>
-                      handleChange(e.target.checked, "SemNumero")}
+                      handleChange(e.target.checked, "semNumero")}
                   />
                 </SimpleGrid>
               </Fieldset>
