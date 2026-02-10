@@ -33,41 +33,41 @@ const EditarArtesao: React.FC = () => {
     if (!id) return;
 
     const formData = new FormData();
-    formData.append("id", updatedArtesao.Id || "");
-    formData.append("nomeArtesao", updatedArtesao.NomeArtesao || "");
-    formData.append("telefone", updatedArtesao.Telefone || "");
-    formData.append("whatsApp", updatedArtesao.WhatsApp || "");
-    formData.append("descricaoPerfil", updatedArtesao.DescricaoPerfil || "");
-    formData.append("usuarioId", updatedArtesao.UsuarioId || "");
+    formData.append("id", updatedArtesao.id || "");
+    formData.append("nomeArtesao", updatedArtesao.nomeArtesao || "");
+    formData.append("telefone", updatedArtesao.telefone || "");
+    formData.append("whatsApp", updatedArtesao.whatsApp || "");
+    formData.append("descricaoPerfil", updatedArtesao.descricaoPerfil || "");
+    formData.append("usuarioId", updatedArtesao.usuarioId || "");
     formData.append(
       "receberEncomendas",
-      updatedArtesao.ReceberEncomendas?.toString() || "false"
+      updatedArtesao.receberEncomendas?.toString() || "false"
     );
     formData.append(
       "enviaEncomendas",
-      updatedArtesao.EnviaEncomendas?.toString() || "false"
+      updatedArtesao.enviaEncomendas?.toString() || "false"
     );
-    formData.append("cep", updatedArtesao.CEP || "");
-    formData.append("estado", updatedArtesao.Estado || "" );
-    formData.append("cidade", updatedArtesao.Cidade || "");
-    formData.append("rua", updatedArtesao.Rua || "");
-    formData.append("bairro", updatedArtesao.Bairro || "");
-    formData.append("complemento", updatedArtesao.Complemento || "");
-    formData.append("numero", updatedArtesao.Numero || "");
-    formData.append("semNumero", updatedArtesao.SemNumero?.toString() || "false");
+    formData.append("cep", updatedArtesao.cep || "");
+    formData.append("estado", updatedArtesao.estado || "" );
+    formData.append("cidade", updatedArtesao.cidade || "");
+    formData.append("rua", updatedArtesao.rua || "");
+    formData.append("bairro", updatedArtesao.bairro || "");
+    formData.append("complemento", updatedArtesao.complemento || "");
+    formData.append("numero", updatedArtesao.numero || "");
+    formData.append("semNumero", updatedArtesao.semNumero?.toString() || "false");
 
     if (
-      updatedArtesao.Imagem &&
-      updatedArtesao.Imagem instanceof File
+      updatedArtesao.imagem &&
+      updatedArtesao.imagem instanceof File
     ) {
-      formData.append("imagemPerfil", updatedArtesao.Imagem);
+      formData.append("imagemPerfil", updatedArtesao.imagem);
     }
 
     try {
       const data = await atualizaArtesao(id, formData);
       console.log("Artesão atualizado com sucesso:", data);
       alert("Artesão atualizado com sucesso!");
-      navigate(`/ExibirArtesao/${data.Id}`); // Redireciona usando o ID correto
+      navigate(`/ExibirArtesao/${data.id}`); // Redireciona usando o ID correto
     } catch (error: any) {
       setErrorMessage(error.message);
       console.error("Erro ao atualizar o artesão:", error);
