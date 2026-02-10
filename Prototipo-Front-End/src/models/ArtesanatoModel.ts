@@ -20,6 +20,7 @@ export interface ArtesanatoFormProps {
     artesanato?: Partial<ArtesanatoModel>;
     onSubmit: (artesanatoAtualizado: ArtesanatoModel) => void;
 }
+
 // Funções relacionadas ao modelo
 export const getHoraAtual = (): string => {
     const now = new Date();
