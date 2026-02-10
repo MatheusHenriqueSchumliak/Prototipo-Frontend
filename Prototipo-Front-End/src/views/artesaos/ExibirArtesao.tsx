@@ -128,11 +128,11 @@ export default function ExibirArtesao() {
                 radius="50%" // Deixa a imagem completamente redonda
                 fit="cover"
                 id="imagemPerfil"
-                alt={`Foto de ${artesao.NomeArtesao}`}
+                alt={`Foto de ${artesao.nomeArtesao}`}
                 src={
-                  artesao.Imagem instanceof File
-                    ? URL.createObjectURL(artesao.Imagem)
-                    : artesao.FotoUrl
+                  artesao.imagem instanceof File
+                    ? URL.createObjectURL(artesao.imagem)
+                    : artesao.fotoUrl
                 }
                 style={{
                   border: "3px solid var(--mantine-color-gray-3)",
@@ -150,7 +150,7 @@ export default function ExibirArtesao() {
             <Stack flex={1} gap="md">
               {/* Nome do artesão */}
               <Text ta={"center"} size="xl" fw={700} c="dark.8">
-                {artesao.NomeArtesao}
+                {artesao.nomeArtesao}
               </Text>
 
               {/*Area de Atuação */}
@@ -158,7 +158,7 @@ export default function ExibirArtesao() {
                 <Text size="sm" fw={600} c="dimmed" mb="xs">
                   Atuação:
                   <Text size="xl" fw={700} c="dark.8">
-                    {artesao.NichoAtuacao}
+                    {artesao.nichoAtuacao}
                   </Text>
                 </Text>
               </Box>
@@ -168,14 +168,14 @@ export default function ExibirArtesao() {
                 <Text size="sm" fw={600} c="dimmed" mb="xs">
                   Informaçãoes Pessoais:
                   <Text size="xl" fw={700} c="dark.8">
-                    {artesao.NomeCompleto} • {artesao.Idade} anos
+                    {artesao.nomeCompleto} • {artesao.idade} anos
                   </Text>
                 </Text>
               </Box>
 
               {/* Descrição do artesão */}
               <Box style={{ maxWidth: 700, margin: "0 auto" }}>
-                {artesao?.DescricaoPerfil!.split("\n").map((paragraph, index) => (
+                {artesao?.descricaoPerfil!.split("\n").map((paragraph, index) => (
                   <Text size="sm" fw={600} c="dimmed" mb="xs">
                     Sobre o Artesão:
                     <Text
@@ -206,7 +206,7 @@ export default function ExibirArtesao() {
             }}
           >
             {/* Sempre mostra o endereço principal primeiro */}
-            {artesao.LocalFisico ? (
+            {artesao.localFisico ? (
               <Group align="flex-start" justify="center" gap="xl" wrap="nowrap">
                 {/* Lado Esquerdo - Informações de Localização */}
                 <Stack gap="sm" style={{ flex: "1 1 50%" }}>
@@ -230,7 +230,7 @@ export default function ExibirArtesao() {
                         CEP:
                       </Text>
                       <Text size="sm" fw={500}>
-                        {formatCEP(artesao?.CEP!)}
+                        {formatCEP(artesao?.cep!)}
                       </Text>
                     </Group>
 
@@ -245,7 +245,7 @@ export default function ExibirArtesao() {
                         Endereço:
                       </Text>
                       <Text size="sm" fw={500} ta="right">
-                        {artesao.Rua} - Nº {artesao.Numero}
+                        {artesao.rua} - Nº {artesao.numero}
                       </Text>
                     </Group>
 
@@ -260,7 +260,7 @@ export default function ExibirArtesao() {
                         Bairro:
                       </Text>
                       <Text size="sm" fw={500}>
-                        {artesao.Bairro}
+                        {artesao.bairro}
                       </Text>
                     </Group>
 
@@ -275,7 +275,7 @@ export default function ExibirArtesao() {
                         Local:
                       </Text>
                       <Text size="sm" fw={500} ta="right">
-                        {artesao.Cidade} - {artesao.Estado}
+                        {artesao.cidade} - {artesao.estado}
                       </Text>
                     </Group>
                   </SimpleGrid>
@@ -299,13 +299,13 @@ export default function ExibirArtesao() {
                     <Checkbox
                       readOnly
                       label="Recebe encomendas"
-                      checked={artesao.ReceberEncomendas}
+                      checked={artesao.receberEncomendas}
                       styles={{
                         label: { fontSize: "14px", fontWeight: 500 },
                         input: { cursor: "default" },
                       }}
                       icon={({ indeterminate, ...others }) =>
-                        artesao.ReceberEncomendas ? (
+                        artesao.receberEncomendas ? (
                           <IconCheck {...others} />
                         ) : null
                       }
@@ -314,13 +314,13 @@ export default function ExibirArtesao() {
                     <Checkbox
                       readOnly
                       label="Envia encomendas fora da cidade ou estado"
-                      checked={artesao.EnviaEncomendas}
+                      checked={artesao.enviaEncomendas}
                       styles={{
                         label: { fontSize: "14px", fontWeight: 500 },
                         input: { cursor: "default" },
                       }}
                       icon={({ indeterminate, ...others }) =>
-                        artesao.EnviaEncomendas ? (
+                        artesao.enviaEncomendas ? (
                           <IconCheck {...others} />
                         ) : null
                       }
@@ -346,7 +346,7 @@ export default function ExibirArtesao() {
                     <Text component="span" c="dimmed">
                       Região de atuação:
                     </Text>{" "}
-                    {artesao.Bairro} • {artesao.Cidade} • {artesao.Estado}
+                    {artesao.bairro} • {artesao.cidade} • {artesao.estado}
                   </Text>
                 </Stack>
 
@@ -363,13 +363,13 @@ export default function ExibirArtesao() {
                     <Checkbox
                       readOnly
                       label="Recebe encomendas"
-                      checked={artesao.ReceberEncomendas}
+                      checked={artesao.receberEncomendas}
                       styles={{
                         label: { fontSize: "14px", fontWeight: 500 },
                         input: { cursor: "default" },
                       }}
                       icon={({ indeterminate, ...others }) =>
-                        artesao.ReceberEncomendas ? (
+                        artesao.receberEncomendas ? (
                           <IconCheck {...others} />
                         ) : null
                       }
@@ -378,13 +378,13 @@ export default function ExibirArtesao() {
                     <Checkbox
                       readOnly
                       label="Envia encomendas fora da cidade ou estado"
-                      checked={artesao.EnviaEncomendas}
+                      checked={artesao.enviaEncomendas}
                       styles={{
                         label: { fontSize: "14px", fontWeight: 500 },
                         input: { cursor: "default" },
                       }}
                       icon={({ indeterminate, ...others }) =>
-                        artesao.EnviaEncomendas ? (
+                        artesao.enviaEncomendas ? (
                           <IconCheck {...others} />
                         ) : null
                       }
@@ -402,7 +402,7 @@ export default function ExibirArtesao() {
           </Paper>
 
           {/* Botão para mostrar informações da feira */}
-          {artesao.FeiraMunicipal && (
+          {artesao.feiraMunicipal && (
             <Group gap="xs" mt="xs">
               <Text size="sm" c="green.6" fw={500}>
                 🏕️ - Você também pode me encontrar na feira municipal!
@@ -421,7 +421,7 @@ export default function ExibirArtesao() {
           )}
 
           {/* Informações da feira (expandível) */}
-          {artesao.FeiraMunicipal && mostrarFeira && (
+          {artesao.feiraMunicipal && mostrarFeira && (
             <Paper p="md" bg="gray.0" mt="sm" radius="md" withBorder>
               <Stack gap="sm">
                 {/* Cabeçalho da Feira */}
@@ -472,7 +472,7 @@ export default function ExibirArtesao() {
           <Divider label="Como entrar em contato" mt="md" mb="md" />
           <Center>
             <SimpleGrid cols={4}>
-              {artesao.Facebook && (
+              {artesao.facebook && (
                 <Button
                   leftSection={<FaFacebook />}
                   variant="filled"
@@ -480,7 +480,7 @@ export default function ExibirArtesao() {
                   onClick={() =>
                     //window.open(`https://wa.me/${artesao.WhatsApp}`, "_blank")
                     window.open(
-                      `https://facebook.com/${artesao.Facebook}`,
+                      `https://facebook.com/${artesao.facebook}`,
                       "_blank"
                     )
                   }
@@ -488,7 +488,7 @@ export default function ExibirArtesao() {
                   Facebook
                 </Button>
               )}
-              {artesao.Instagram && (
+              {artesao.instagram && (
                 <Button
                   leftSection={<FaInstagram />}
                   variant="filled"
@@ -496,7 +496,7 @@ export default function ExibirArtesao() {
                   onClick={() =>
                     //window.open(`https://wa.me/${artesao.WhatsApp}`, "_blank")
                     window.open(
-                      `https://instagram.com/${artesao.Instagram}`,
+                      `https://instagram.com/${artesao.instagram}`,
                       "_blank"
                     )
                   }
@@ -504,14 +504,14 @@ export default function ExibirArtesao() {
                   Instagram
                 </Button>
               )}
-              {artesao.WhatsApp && (
+              {artesao.whatsApp && (
                 <Button
                   leftSection={<FaWhatsapp />}
                   variant="filled"
                   color="teal"
                   onClick={() =>
                     window.open(
-                      `https://wa.me/+55${artesao.WhatsApp}`,
+                      `https://wa.me/+55${artesao.whatsApp}`,
                       "_blank"
                     )
                   }
@@ -519,7 +519,7 @@ export default function ExibirArtesao() {
                   WhatsApp
                 </Button>
               )}
-              {artesao.Email && (
+              {artesao.email && (
                 <Button
                   leftSection={<HiOutlineMail />}
                   variant="filled"
@@ -582,6 +582,6 @@ export default function ExibirArtesao() {
 
   function handleEmailClick() {
     if (!artesao) return;
-    window.location.href = `mailto:${artesao.Email}?subject=Contato via Plataforma&body=Olá, gostaria de saber mais sobre seus artesanatos.`;
+    window.location.href = `mailto:${artesao.email}?subject=Contato via Plataforma&body=Olá, gostaria de saber mais sobre seus artesanatos.`;
   }
 }
