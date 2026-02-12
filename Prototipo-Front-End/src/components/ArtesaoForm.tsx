@@ -1,66 +1,24 @@
-import { ArtesaoFormProps, ArtesaoModel } from "../models/ArtesaoModel";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-
+import { Container, Center, Fieldset, SimpleGrid, Avatar, FileInput, InputBase, Textarea, Checkbox, TextInput, Button, FileInputProps, Pill, } from "@mantine/core";
 import { atualizaArtesao, cadastrarArtesao } from "../services/ArtesaoService";
-
-import {
-  Container,
-  Center,
-  Fieldset,
-  SimpleGrid,
-  Avatar,
-  FileInput,
-  InputBase,
-  Textarea,
-  Checkbox,
-  TextInput,
-  Button,
-  FileInputProps,
-  Pill,
-} from "@mantine/core";
-import Swal from "sweetalert2";
+import { ArtesaoFormProps, ArtesaoModel, defaultArtesao } from "../models/ArtesaoModel";
+import { useNavigate, useParams } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
-const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel }) => {
-  const [, setFotoUrl] = useState<string | null>(null);
+const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao }) => {
   const usuarioId = localStorage.getItem("usuarioId");
+  const [, setFotoUrl] = useState<string | null>(null);
   const [, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
-  // const isEditing = artesao.Id;
   const MySwal = withReactContent(Swal);
-
   useParams<{ id: string }>();
 
   const [artesaoState, setArtesaoState] = useState<ArtesaoModel>({
+    ...defaultArtesao,
     ...artesao,
-    id: String(artesao?.id || "00000000-0000-0000-0000-000000000001"),
-    nomeArtesao: artesao?.nomeArtesao || "",
-    nomeCompleto: artesao?.nomeCompleto || "",
-    idade: artesao?.idade || 0,
-    telefone: artesao?.telefone || "",
-    whatsApp: artesao?.whatsApp || "",
-    email: artesao?.email || "",
-    instagram: artesao?.instagram || "",
-    facebook: artesao?.facebook || "",
-    nichoAtuacao: artesao?.nichoAtuacao || "",
-    descricaoPerfil: artesao?.descricaoPerfil || "",
-    usuarioId: usuarioId || "00cb252e-0310-41fe-8014-3549e7fa2b3f",
-    receberEncomendas: artesao?.receberEncomendas || false,
-    localFisico: artesao?.localFisico || false,
-    feiraMunicipal: artesao?.feiraMunicipal || false,
-    enviaEncomendas: artesao?.enviaEncomendas || false,
-    imagem: artesao?.imagem || null,
-    fotoUrl: artesao?.fotoUrl || "",
-    cep: artesao?.cep || "",
-    estado: artesao?.estado || "",
-    cidade: artesao?.cidade || "",
-    rua: artesao?.rua || "",
-    bairro: artesao?.bairro || "",
-    complemento: artesao?.complemento || "",
-    numero: artesao?.numero || "",
-    semNumero: artesao?.semNumero || false,
-    dataCadastro: artesao?.dataCadastro || new Date(),
+    usuarioId: usuarioId || defaultArtesao.usuarioId,
+    id: artesao?.id || "00000000-0000-0000-0000-000000000000",
   });
 
   const handleFileChange = (file: File | null) => {
@@ -123,9 +81,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
     }
 
     try {
-      const response = await fetch(
-        `https://viacep.com.br/ws/${artesaoState.cep}/json/`
-      );
+      const response = await fetch(`https://viacep.com.br/ws/${artesaoState.cep}/json/`);
       const data = await response.json();
 
       if (!data.erro) {
@@ -187,7 +143,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
         // ✅ ATUALIZAÇÃO - Passa o objeto diretamente
         console.log("🔄 Atualizando artesão com ID:", artesaoState.id);
 
-        artesaoResultado = await atualizaArtesao(artesaoState.id!, artesaoState as unknown as FormData);
+        artesaoResultado = await atualizaArtesao(artesaoState.id!, artesaoState as FormData);
 
         MySwal.fire({
           title: "Sucesso!",
@@ -216,6 +172,7 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
       }
     } catch (error: any) {
       // ... resto do código de erro
+      console.log(error.response?.data);
     }
   };
 
@@ -244,68 +201,19 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
         <Center>
           <form onSubmit={handleSubmit}>
             <Fieldset legend="Informações do Artesão">
-              {/* <Center>
-                <SimpleGrid cols={2}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {artesao.imagem && (
-                      <Avatar
-                        variant="default"
-                        radius="xl"
-                        size={100}
-                        src={URL.createObjectURL(artesao.imagem)}
-                        alt="Imagem do artesão"
-                        style={{
-                          objectFit: "cover", // Faz a imagem se ajustar sem distorção
-                          width: "100px", // Tamanho fixo
-                          height: "100px", // Tamanho fixo
-                          position: "relative", // Previne o deslocamento do Avatar
-                        }}
-                      />
-                    )}
-                  </div>
-                  <FileInput
-                    label="Foto de perfil"
-                    placeholder="Selecione sua foto"
-                    id="imagem"
-                    onChange={(file) => handleFilesChange(file as File | null)}
-                    valueComponent={ValueComponent}
-                    multiple={false}
-                    accept="image/png,image/jpeg"
-                  />
-                </SimpleGrid>
-              </Center> */}
 
               <Center>
                 <SimpleGrid cols={1} spacing="sm">
                   {" "}
                   {/* Layout em coluna para uma boa disposição */}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
                     {artesaoState.imagem && (
-                      <Avatar
-                        variant="default"
-                        radius="xl"
-                        size={100} // Tamanho fixo, mas você pode ajustar conforme a necessidade
-                        //src={URL.createObjectURL(artesao.imagem)}
+                      <Avatar variant="default" radius="xl" size={100} alt="Imagem do artesão"
                         src={
-                          artesaoState.imagem instanceof File
-                            ? URL.createObjectURL(artesaoState.imagem)
-                            : Array.isArray(artesaoState.fotoUrl)
-                              ? artesaoState.fotoUrl // Usa o primeiro valor se for um array
-                              : artesaoState.fotoUrl
+                          artesaoState.imagem instanceof File ? URL.createObjectURL(artesaoState.imagem) : Array.isArray(artesaoState.fotoUrl)
+                            ? artesaoState.fotoUrl
+                            : artesaoState.fotoUrl
                         }
-                        alt="Imagem do artesão"
                         style={{
                           objectFit: "cover", // Faz a imagem se ajustar sem distorção
                           width: "100px", // Largura fixa
@@ -317,268 +225,46 @@ const ArtesaoForm: React.FC<ArtesaoFormProps> = ({ artesao = {} as ArtesaoModel 
                       />
                     )}
                   </div>
-                  <FileInput
-                    label="Foto de perfil"
-                    placeholder="Selecione sua foto"
-                    id="imagem"
-                    onChange={(file) => handleFileChange(file as File | null)}
-                    valueComponent={ValueComponent}
-                    multiple={false}
-                    accept="image/png,image/jpeg"
-                  />
+                  <FileInput id="imagem" label="Foto de perfil" placeholder="Selecione sua foto" multiple={false} accept="image/png,image/jpeg" valueComponent={ValueComponent} onChange={(file) => handleFileChange(file as File | null)} />
                 </SimpleGrid>
               </Center>
 
               <SimpleGrid cols={2}>
-                <InputBase
-                  w={350}
-                  radius="md"
-                  label="Nome Completo:"
-                  placeholder="Nome Completo"
-                  type="text"
-                  id="nomeCompleto"
-                  value={artesaoState.nomeCompleto}
-                  onChange={(e) => handleChange(e.target.value, "nomeCompleto")}
-                  required
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="Idade:"
-                  id="idade"
-                  value={artesaoState.idade || ""}
-                  placeholder="21"
-                  onChange={handleInputChange}
-                  maxLength={2}
-                  type="number"
-                />
-                <InputBase
-                  w={350}
-                  radius="md"
-                  label="Nome do perfil:"
-                  placeholder="Nome do perfil"
-                  type="text"
-                  id="NomeArtesao"
-                  value={artesaoState.nomeArtesao}
-                  onChange={(e) => handleChange(e.target.value, "nomeArtesao")}
-                  required
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="Telefone:"
-                  id="Telefone"
-                  value={artesaoState.telefone || ""}
-                  placeholder="(99) 9 9999-9999"
-                  onChange={handleInputChange}
-                  maxLength={15}
-                //mask="(99) 99999-9999"
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="Whats App:"
-                  id="WhatsApp"
-                  value={artesaoState.whatsApp || ""}
-                  placeholder="(99) 9 9999-9999"
-                  onChange={handleInputChange}
-                  maxLength={15}
-                //mask="(99) 99999-9999"
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="E-mail:"
-                  id="Email"
-                  value={artesaoState.email || ""}
-                  placeholder="email@exemplo.com"
-                  onChange={handleInputChange}
-                  maxLength={50}
-                //mask="(99) 99999-9999"
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="Instagram:"
-                  id="Instagram"
-                  value={artesaoState.instagram || ""}
-                  placeholder="https://www.instagram.com/usuario"
-                  onChange={handleInputChange}
-                  maxLength={50}
-                //mask="(99) 99999-9999"
-                />
-                <InputBase
-                  w={300}
-                  radius="md"
-                  label="Facebook:"
-                  id="Facebook"
-                  value={artesaoState.facebook || ""}
-                  placeholder="https://www.facebook.com/usuario"
-                  onChange={handleInputChange}
-                  maxLength={50}
-                //mask="(99) 99999-9999"
-                />
+                <InputBase id="nomeCompleto" label="Nome Completo:" placeholder="Nome Completo" type="text" required w={350} radius="md" value={artesaoState.nomeCompleto} onChange={(e) => handleChange(e.target.value, "nomeCompleto")} />
+                <InputBase id="idade" label="Idade:" placeholder="21" type="number" maxLength={2} w={300} radius="md" value={artesaoState.idade || ""} onChange={handleInputChange} />
+                <InputBase id="nomeArtesao" label="Nome do perfil:" placeholder="Nome do perfil" type="text" required w={350} radius="md" value={artesaoState.nomeArtesao} onChange={(e) => handleChange(e.target.value, "nomeArtesao")} />
+                <InputBase id="telefone" label="Telefone:" placeholder="(99) 9 9999-9999" maxLength={15} w={300} radius="md" value={artesaoState.telefone || ""} onChange={handleInputChange} />
+                <InputBase id="whatsApp" label="Whats App:" placeholder="(99) 9 9999-9999" maxLength={15} w={300} radius="md" value={artesaoState.whatsApp || ""} onChange={handleInputChange} />
+                <InputBase id="email" label="E-mail:" placeholder="email@exemplo.com" maxLength={50} w={300} radius="md" value={artesaoState.email || ""} onChange={handleInputChange} />
+                <InputBase id="instagram" label="Instagram:" placeholder="https://www.instagram.com/usuario" maxLength={50} w={300} radius="md" value={artesaoState.instagram || ""} onChange={handleInputChange} />
+                <InputBase id="facebook" label="Facebook:" placeholder="https://www.facebook.com/usuario" maxLength={50} w={300} radius="md" value={artesaoState.facebook || ""} onChange={handleInputChange} />
               </SimpleGrid>
-              <InputBase
-                w={300}
-                radius="md"
-                label="Nicho de Atuacao:"
-                id="NichoAtuacao"
-                value={artesaoState.nichoAtuacao || ""}
-                placeholder="Nicho de atuação"
-                onChange={handleInputChange}
-                maxLength={50}
-              />
-              <Textarea
-                radius="md"
-                label="Descrição:"
-                resize="vertical"
-                placeholder="Descreva sobre a sua marca. min 500 caracteres"
-                id="DescricaoPerfil"
-                value={artesaoState.descricaoPerfil || ""}
-                rows={5}
-                onChange={(e) =>
-                  handleChange(e.target.value, "descricaoPerfil")
-                }
-                required
-              />
+              <InputBase id="nichoAtuacao" label="Nicho de Atuacao:" placeholder="Nicho de atuação" maxLength={50} w={300} radius="md" value={artesaoState.nichoAtuacao || ""} onChange={handleInputChange} />
+              <Textarea id="descricaoPerfil" label="Descrição:" placeholder="Descreva sobre a sua marca. min 500 caracteres" required rows={5} radius="md" resize="vertical" value={artesaoState.descricaoPerfil || ""} onChange={(e) => handleChange(e.target.value, "descricaoPerfil")} />
               <Fieldset legend="Informações sobre encomendas">
                 <SimpleGrid cols={2} spacing="sm">
-                  <Checkbox
-                    p="md"
-                    id="ReceberEncomendas"
-                    label="Aceito receber encomendas."
-                    checked={artesaoState.receberEncomendas}
-                    onChange={(e) =>
-                      handleChange(e.target.checked, "receberEncomendas")
-                    }
-                  />
-                  <Checkbox
-                    p="md"
-                    id="EnviaEncomendas"
-                    label="Aceita enviar encomendas."
-                    checked={artesaoState.enviaEncomendas}
-                    onChange={(e) =>
-                      handleChange(e.target.checked, "enviaEncomendas")
-                    }
-                  />
+                  <Checkbox id="receberEncomendas" label="Aceito receber encomendas." p="md" checked={artesaoState.receberEncomendas} onChange={(e) => handleChange(e.target.checked, "receberEncomendas")} />
+                  <Checkbox id="enviaEncomendas" label="Aceita enviar encomendas." p="md" checked={artesaoState.enviaEncomendas} onChange={(e) => handleChange(e.target.checked, "enviaEncomendas")} />
                 </SimpleGrid>
               </Fieldset>
 
               {/** Informações de endereço e atuação*/}
               <Fieldset legend="Informações de endereço">
                 <SimpleGrid cols={2} mt={5} spacing="">
-                  <Checkbox
-                    label="Possui local físico"
-                    id="LocalFisico"
-                    checked={artesaoState.localFisico}
-                    onChange={(e) =>
-                      handleChange(e.target.checked, "localFisico")
-                    }
-                  />
-                  <Checkbox
-                    label="Feira Municipal"
-                    id="FeiraMunicipal"
-                    checked={artesaoState.feiraMunicipal}
-                    onChange={(e) =>
-                      handleChange(e.target.checked, "feiraMunicipal")
-                    }
-                  />
+                  <Checkbox id="localFisico" label="Possui local físico" checked={artesaoState.localFisico} onChange={(e) => handleChange(e.target.checked, "localFisico")} />
+                  <Checkbox id="feiraMunicipal" label="Feira Municipal" checked={artesaoState.feiraMunicipal} onChange={(e) => handleChange(e.target.checked, "feiraMunicipal")} />
                 </SimpleGrid>
                 <SimpleGrid cols={3} mt={5} spacing="">
-                  <TextInput
-                    w={110}
-                    required
-                    radius="md"
-                    label="CEP:"
-                    placeholder="00000-000"
-                    type="text"
-                    id="CEP"
-                    value={artesaoState.cep || ""}
-                    onChange={(e) =>
-                      setArtesaoState({ ...artesaoState, cep: e.target.value })
-                    }
-                    onBlur={buscarCep} // Chama a função ao perder o foco
-                  />
-                  <TextInput
-                    ml="-101px"
-                    w={200}
-                    required
-                    radius="md"
-                    label="Estado:"
-                    placeholder="Selecione"
-                    type="text"
-                    id="estado"
-                    value={artesaoState.estado || ""}
-                    onChange={(e) => handleChange(e.target.value, "estado")}
-                  />
-                  <TextInput
-                    ml="-130px"
-                    w={150}
-                    required
-                    radius="md"
-                    label="Cidade:"
-                    placeholder="Selecione"
-                    type="text"
-                    id="cidade"
-                    value={artesaoState.cidade || ""}
-                    onChange={(e) => handleChange(e.target.value, "cidade")}
-                  />
+                  <TextInput id="cep" label="CEP:" placeholder="00000-000" required w={110} radius="md" type="text" value={artesaoState.cep || ""} onChange={(e) => setArtesaoState({ ...artesaoState, cep: e.target.value })} onBlur={buscarCep} />
+                  <TextInput id="estado" label="Estado:" placeholder="Selecione" required type="text" ml="-101px" w={200} radius="md" value={artesaoState.estado || ""} onChange={(e) => handleChange(e.target.value, "estado")} />
+                  <TextInput id="cidade" label="Cidade:" placeholder="Selecione" required type="text" ml="-130px" w={150} radius="md" value={artesaoState.cidade || ""} onChange={(e) => handleChange(e.target.value, "cidade")} />
                 </SimpleGrid>
                 <SimpleGrid cols={5} mt={5} spacing="xs">
-                  <TextInput
-                    w={150}
-                    required
-                    radius="md"
-                    label="Rua:"
-                    placeholder="Rua lorem ipsum"
-                    type="text"
-                    id="rua"
-                    value={artesaoState.rua || ""}
-                    onChange={(e) => handleChange(e.target.value, "rua")}
-                  />
-                  <TextInput
-                    w={150}
-                    radius="md"
-                    required
-                    label="Bairro:"
-                    placeholder="Bairro exemplo x"
-                    type="text"
-                    id="bairro"
-                    value={artesaoState.bairro || ""}
-                    onChange={(e) => handleChange(e.target.value, "bairro")}
-                  />
-                  <TextInput
-                    w={150}
-                    radius="md"
-                    label="Complemento:"
-                    placeholder="Apto x ou "
-                    type="text"
-                    id="complemento"
-                    value={artesaoState.complemento || ""}
-                    onChange={(e) =>
-                      handleChange(e.target.value, "complemento")
-                    }
-                  />
-                  <TextInput
-                    w={70}
-                    radius="md"
-                    label="N°:"
-                    placeholder="0000"
-                    type="text"
-                    id="numero"
-                    value={artesaoState.numero || ""}
-                    onChange={(e) => handleChange(e.target.value, "numero")}
-                  />
-                  <Checkbox
-                    p="xl"
-                    ml="-100px"
-                    label="Sem N°"
-                    id="semNumero"
-                    checked={artesaoState.semNumero}
-                    onChange={(e) =>
-                      handleChange(e.target.checked, "semNumero")}
-                  />
+                  <TextInput id="rua" label="Rua:" placeholder="Rua lorem ipsum" w={150} radius="md" required type="text" value={artesaoState.rua || ""} onChange={(e) => handleChange(e.target.value, "rua")} />
+                  <TextInput id="bairro" label="Bairro:" placeholder="Bairro exemplo x" required w={150} radius="md" type="text" value={artesaoState.bairro || ""} onChange={(e) => handleChange(e.target.value, "bairro")} />
+                  <TextInput id="complemento" label="Complemento:" placeholder="Apto x ou " w={150} radius="md" type="text" value={artesaoState.complemento || ""} onChange={(e) => handleChange(e.target.value, "complemento")} />
+                  <TextInput id="numero" label="N°:" placeholder="0000" w={70} radius="md" type="text" value={artesaoState.numero || ""} onChange={(e) => handleChange(e.target.value, "numero")} />
+                  <Checkbox id="semNumero" label="Sem N°" p="xl" ml="-100px" checked={artesaoState.semNumero} onChange={(e) => handleChange(e.target.checked, "semNumero")} />
                 </SimpleGrid>
               </Fieldset>
 

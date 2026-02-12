@@ -208,7 +208,7 @@ export default function RootLayout() {
         mt={0}
         style={{
           flex: 1,
-          padding: "clamp(1rem, 5vw, 5%)",
+          padding: "clamp(1rem, 2vw, 2%)",
         }}
       >
         <Container
