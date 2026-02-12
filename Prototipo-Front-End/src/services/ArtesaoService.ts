@@ -21,7 +21,7 @@ export const listarArtesaos = async (filtro?: { nome?: string; nichoAtuacao?: st
     try {
         const response = await apiRequest<ArtesaoModel[]>(url, null, "GET");
 
-        if (process.env.NODE_ENV === "development") {
+        if (import.meta.env.MODE === "development") {
             console.log("Resposta crua da API (artesãos):", response);
         }
 
@@ -92,7 +92,7 @@ export const atualizaArtesao = async (id: string, artesao: FormData): Promise<Ar
 
     try {
         // Log apenas em desenvolvimento
-        if (process.env.NODE_ENV === "development") {
+        if (import.meta.env.MODE === "development") {
             for (let pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
             }
@@ -111,7 +111,7 @@ export const deleteArtesao = async (id: string): Promise<void> => {
 
     try {
         await apiRequest<void>(`Artesao/${id}`, null, "DELETE");
-        if (process.env.NODE_ENV === "development") {
+        if (import.meta.env.MODE === "development") {
             console.log(`Artesão com ID ${id} foi excluído com sucesso.`);
         }
     } catch (error: any) {
@@ -126,7 +126,7 @@ export const buscarArtesaoPorId = async (id: string): Promise<ArtesaoModel> => {
     try {
         const resposta = await apiRequest<BuscarArtesaoResponse>(`Artesao/${id}`, null, "GET");
         if (!resposta?.data) throw new Error("Artesão não encontrado.");
-        if (process.env.NODE_ENV === "development") {
+        if (import.meta.env.MODE === "development") {
             console.log("método buscarArtesaoPorId retornado da API:", JSON.stringify(resposta, null, 2));
         }
         return resposta.data;
@@ -141,7 +141,7 @@ export const buscarArtesaoPorNome = async (nome: string): Promise<ArtesaoModel |
 
     try {
         const resposta = await apiRequest<ArtesaoModel>(`Artesao/ObterNomeArtesanato/${encodeURIComponent(nome)}`, null, "GET");
-        if (process.env.NODE_ENV === "development") {
+        if (import.meta.env.MODE === "development") {
             console.log("Artesão retornado da API:", JSON.stringify(resposta, null, 2));
         }
         return resposta || null;
