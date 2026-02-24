@@ -108,7 +108,7 @@ export default function ExibirArtesao() {
 
   return (
     <section>
-      <Container>
+      <Container mt="lg" py="lg">
         {isAuthenticated && (
           <Link to={`/EditarArtesao/${artesaoId}`}>
             <Button variant="filled" color="orange">
@@ -119,7 +119,7 @@ export default function ExibirArtesao() {
 
         {/* Layout com imagem à esquerda e informações à direita */}
         <Fieldset m="md">
-          <Group align="flex-start" gap="xl" mb="xl">
+          <Group align="flex-start" gap="xl" mb="xl" >
             {/* Imagem do perfil - lado esquerdo */}
             <Box mt="5%" style={{ flex: "0 0 200px" }}>
               <Image

@@ -142,7 +142,8 @@ export default function ExibirArtesanato() {
           align="center"
           direction="row"
           wrap="wrap"
-          mb="md"
+          mt="lg"
+          py="lg"
         >
           <Button
             variant="outline"
