@@ -59,7 +59,7 @@ export const atualizaArtesanato = async (id: string, artesanatoAtualizado: FormD
     console.log("Artesanato enviado para a API:", JSON.stringify(artesanatoAtualizado, null, 2));
 
 
-    const artesanato = await apiRequest<ArtesanatoModel>(`artesanato/${id}`, artesanatoAtualizado, "PUT");
+    const artesanato = await apiRequest<ArtesanatoModel>(`Artesanato/Atualizar/${id}`, artesanatoAtualizado, "PUT");
 
     console.log("Artesanato atualizado:", JSON.stringify(artesanato, null, 2));
     return artesanato;
@@ -76,7 +76,7 @@ export const deleteArtesanato = async (id: string): Promise<void> => {
   }
 
   try {
-    await apiRequest<void>(`artesanato/${id}`, null, "DELETE");
+    await apiRequest<void>(`Artesanato/Excluir/${id}`, null, "DELETE");
     console.log(`Artesanato com ID ${id} foi excluído com sucesso.`);
   } catch (error) {
     console.error("Erro ao excluir artesanato:", error);
