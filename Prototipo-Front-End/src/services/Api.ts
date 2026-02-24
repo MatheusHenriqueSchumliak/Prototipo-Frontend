@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 // Cria a instância
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: "https://localhost:7058/"
 });
 
 // Interceptor Global de Resposta
