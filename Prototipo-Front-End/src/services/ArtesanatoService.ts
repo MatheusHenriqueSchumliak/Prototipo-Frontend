@@ -105,7 +105,7 @@ export const BuscarArtesanatoPorArtesaoId = async (id: string): Promise<Artesana
   }
 
   try {
-    const resposta = await apiRequest<BuscarArtesanatoResponse>(`Artesanato/BuscarTodosPorArtesaoId/${id}`, null, "GET");
+    const resposta = await apiRequest<BuscarArtesanatoResponse>(`Artesanato/TodosPorArtesao/${id}`, null, "GET");
     console.log("método buscarArtesanatoPorArtesaoId retornado da API:", JSON.stringify(resposta, null, 2));
     return resposta.data;
   } catch (error) {

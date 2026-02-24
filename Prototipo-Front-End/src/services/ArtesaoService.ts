@@ -124,7 +124,7 @@ export const buscarArtesaoPorId = async (id: string): Promise<ArtesaoModel> => {
     if (!id?.trim()) throw new Error("O ID do artesão é inválido.");
 
     try {
-        const resposta = await apiRequest<BuscarArtesaoResponse>(`Artesao/${id}`, null, "GET");
+        const resposta = await apiRequest<BuscarArtesaoResponse>(`Artesao/BuscarPorId/${id}`, null, "GET");
         if (!resposta?.data) throw new Error("Artesão não encontrado.");
         if (import.meta.env.MODE === "development") {
             console.log("método buscarArtesaoPorId retornado da API:", JSON.stringify(resposta, null, 2));

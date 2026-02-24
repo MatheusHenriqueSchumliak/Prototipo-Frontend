@@ -157,9 +157,9 @@ export default function ExibirArtesao() {
               <Box>
                 <Text size="sm" fw={600} c="dimmed" mb="xs">
                   Atuação:
-                  <Text size="xl" fw={700} c="dark.8">
-                    {artesao.nichoAtuacao}
-                  </Text>
+                </Text>
+                <Text size="xl" fw={700} c="dark.8">
+                  {artesao.nichoAtuacao}
                 </Text>
               </Box>
 
@@ -167,28 +167,28 @@ export default function ExibirArtesao() {
               <Box>
                 <Text size="sm" fw={600} c="dimmed" mb="xs">
                   Informaçãoes Pessoais:
-                  <Text size="xl" fw={700} c="dark.8">
-                    {artesao.nomeCompleto} • {artesao.idade} anos
-                  </Text>
+                </Text>
+                <Text size="xl" fw={700} c="dark.8">
+                  {artesao.nomeCompleto} • {artesao.idade} anos
                 </Text>
               </Box>
 
               {/* Descrição do artesão */}
               <Box style={{ maxWidth: 700, margin: "0 auto" }}>
+                <Text size="sm" fw={600} c="dimmed" mb="xs">
+                  Sobre o Artesão:
+                </Text>
                 {artesao?.descricaoPerfil!.split("\n").map((paragraph, index) => (
-                  <Text size="sm" fw={600} c="dimmed" mb="xs">
-                    Sobre o Artesão:
-                    <Text
-                      key={index}
-                      ta="justify"
-                      size="md"
-                      lh={1.6}
-                      mb="md"
-                      c="dark.8"
-                      style={{ textIndent: "1.5em" }}
-                    >
-                      {paragraph}
-                    </Text>
+                  <Text
+                    key={index}
+                    ta="justify"
+                    size="md"
+                    lh={1.6}
+                    mb="md"
+                    c="dark.8"
+                    style={{ textIndent: "1.5em" }}
+                  >
+                    {paragraph}
                   </Text>
                 ))}
               </Box>

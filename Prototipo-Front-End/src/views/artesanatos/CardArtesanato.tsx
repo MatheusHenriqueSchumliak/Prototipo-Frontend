@@ -204,7 +204,7 @@ export default function CardArtesanato({
   );
 
   function acessaArtesanatoComID() {
-    return `/ExibirArtesanato/${artesanato.id}`;
+    return `/exibir-artesanato/${artesanato.id}`;
   }
 
   function formatarTempoProdução(horas: number): string {

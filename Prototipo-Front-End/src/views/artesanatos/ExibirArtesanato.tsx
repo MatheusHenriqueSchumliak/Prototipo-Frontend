@@ -194,7 +194,7 @@ export default function ExibirArtesanato() {
             indicator: {
               backgroundColor: "var(--mantine-color-gray-3)",
               border: "1px solid var(--mantine-color-gray-5)",
-              "&[data-active]": {
+              "&[dataActive]": {
                 backgroundColor: "var(--mantine-color-dark-6)",
               },
             },
@@ -207,9 +207,8 @@ export default function ExibirArtesanato() {
                   p="sm"
                   id="descricaoPerfil"
                   src={url}
-                  alt={`Imagem ${index + 1} do artesanato ${
-                    artesanato.tituloArtesanato
-                  }`}
+                  alt={`Imagem ${index + 1} do artesanato ${artesanato.tituloArtesanato
+                    }`}
                   style={{
                     width: "100%",
                     height: "400px",
@@ -260,9 +259,8 @@ export default function ExibirArtesanato() {
                 bg={artesanato.quantidadeArtesanato > 0 ? "blue.0" : "red.0"}
                 radius="md"
                 style={{
-                  border: `1px solid var(--mantine-color-${
-                    artesanato.quantidadeArtesanato > 0 ? "blue" : "red"
-                  }-3)`,
+                  border: `1px solid var(--mantine-color-${artesanato.quantidadeArtesanato > 0 ? "blue" : "red"
+                    }-3)`,
                 }}
               >
                 <Text
@@ -365,17 +363,17 @@ export default function ExibirArtesanato() {
           </Box>
         </Stack>
 
-        {/* 9. OUTROS TRABALHOS */}        
+        {/* 9. OUTROS TRABALHOS */}
         <Title
-          order={2}  
-          mt="md"        
+          order={2}
+          mt="md"
           mb={30}
           style={{
             textAlign: "center",
             fontSize: "clamp(1.5rem, 4vw, 1.75rem)",
           }}
         >
-         Mais trabalhos do Artesão
+          Mais trabalhos do Artesão
         </Title>
 
         <Grid mt="md" mb="md" justify="center">
