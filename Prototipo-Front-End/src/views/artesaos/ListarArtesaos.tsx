@@ -71,7 +71,7 @@ export default function ListarArtesaos() {
   return (
     <section>
       <Container>
-        <Text size="xl" mb="lg">
+        <Text size="xl" py="xl">
           Lista de Artesãos
         </Text>
 
