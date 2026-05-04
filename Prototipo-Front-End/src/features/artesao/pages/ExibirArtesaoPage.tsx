@@ -18,7 +18,6 @@ import {
   Box,
   Paper,
   Stack,
-  Loader,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import { useArtesao } from "../hooks/useArtesao";
@@ -35,12 +34,12 @@ const formatCEP = (value: string) => {
 export default function ExibirArtesaoPage() {
   const { id } = useParams<{ id: string }>();
   const artesaoId = id?.startsWith("id=") ? id.split("=")[1] : id;
-  const { data: artesao, isLoading, error } = useArtesao(artesaoId);
+  const { data: artesao, error } = useArtesao(artesaoId);
   const { data: artesanatos = [] } = useArtesanatosPorArtesao(artesaoId);
   const { isAuthenticated } = useAuth();
   const [mostrarFeira, setMostrarFeira] = useState(false);
-
-  if (isLoading) return <Loader size="xl" />;
+  if (!artesao && !error)
+    return null;
   if (error || !artesao)
     return (
       <Alert color="red">Erro ao carregar dados do artesão.</Alert>
@@ -49,9 +48,6 @@ export default function ExibirArtesaoPage() {
   const endereco = artesao.pessoa?.endereco;
   const contato = artesao.pessoa?.contato;
   const pessoa = artesao.pessoa;
-
-  const numeroTelefone = contato?.telefone?.replace(/\D/g, "");
-  const numeroWhatsApp = `+55${numeroTelefone}`;
 
   return (
     <section>

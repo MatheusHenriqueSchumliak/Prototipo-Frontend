@@ -29,7 +29,7 @@ export const validateArtesanatoForm = (
   if (result.success) return { success: true, data: result.data };
 
   const errors: Record<string, string> = {};
-  result.error.errors.forEach((err) => {
+  result.error.issues.forEach((err) => {
     errors[err.path.join(".")] = err.message;
   });
   return { success: false, errors };

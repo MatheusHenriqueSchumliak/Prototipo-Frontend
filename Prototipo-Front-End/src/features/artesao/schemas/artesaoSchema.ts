@@ -38,7 +38,7 @@ export const validateArtesaoForm = (
   if (result.success) return { success: true, data: result.data };
 
   const errors: Record<string, string> = {};
-  result.error.errors.forEach((err) => {
+  result.error.issues.forEach((err) => {
     const path = err.path.join(".");
     errors[path] = err.message;
   });
