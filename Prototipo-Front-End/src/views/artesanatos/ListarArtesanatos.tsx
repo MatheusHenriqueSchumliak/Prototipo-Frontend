@@ -246,23 +246,9 @@ export default function ListarArtesanatos({
   // Se for homepage, não usa Container próprio
   if (isHomePage) {
     return (
-     <Container size="xl" py="xl">
-      {/* {showTitle && (
-        <Title order={2} size="h2" mb="xl">
-          Explore por artesanatos
-        </Title>
-      )} */}
-      {/* Componente de Filtro */}
-      {/* <ArtesanatoFiltro
-        filtros={filtros}
-        onFiltrosChange={setFiltros}
-        onFiltrar={aplicarFiltros}
-        onLimparFiltros={limparFiltros}
-        dadosSelect={dadosSelect}
-        loading={loading}
-      />  */}
-      {renderContent()}
-    </Container>
+      <Container size="xl" py="xl">
+        {renderContent()}
+      </Container>
     );
   }
 
@@ -271,9 +257,10 @@ export default function ListarArtesanatos({
     <Container size="xl" py="xl">
       {showTitle && (
         <Title order={2} size="h2" mb="xl">
-          Explore por artesanatos
+          Explore por artesanatos!
         </Title>
       )}
+
       {/* Componente de Filtro */}
       <ArtesanatoFiltro
         filtros={filtros}
@@ -282,8 +269,10 @@ export default function ListarArtesanatos({
         onLimparFiltros={limparFiltros}
         dadosSelect={dadosSelect}
         loading={loading}
-      /> 
+      />
+
       {renderContent()}
+
     </Container>
   );
 }

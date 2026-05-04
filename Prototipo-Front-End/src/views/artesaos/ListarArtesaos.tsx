@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
   TextInput,
+  Title,
 } from "@mantine/core";
 import { ArtesaoModel } from "./../../models/ArtesaoModel";
 import { useEffect, useState } from "react";
@@ -70,10 +71,10 @@ export default function ListarArtesaos() {
 
   return (
     <section>
-      <Container>
-        <Text size="xl" py="xl">
-          Lista de Artesãos
-        </Text>
+      <Container size="xl" py="xl">
+        <Title order={2} size="h2" mb="xl" style={{ textAlign: "center" }}>
+          Explore por artesãos!
+        </Title>
 
         {/* Campo de filtro */}
         <Card
