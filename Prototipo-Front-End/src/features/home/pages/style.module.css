@@ -1,0 +1,25 @@
+.carousel-indicator {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  width: 12px !important;
+  height: 12px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.carousel-indicator[data-active] {
+  background-color: white !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.2);
+}
+
+.carousel-control {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #333 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.carousel-control:hover {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  transform: scale(1.05);
+}
