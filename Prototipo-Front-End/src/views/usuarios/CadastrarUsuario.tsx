@@ -6,7 +6,7 @@
 //   );
 // }
 // views/usuarios/CadastrarUsuario.tsx
-import UsuarioForm from "../../components/UsuarioForm";
+import UsuarioForm from "../../features/usuario/components/UsuarioForm";
 import React, { useEffect } from "react";
 
 /**

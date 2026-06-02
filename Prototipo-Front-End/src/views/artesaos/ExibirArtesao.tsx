@@ -22,8 +22,8 @@ import {
   Stack,
 } from "@mantine/core";
 import { ArtesanatoModel } from "../../models/ArtesanatoModel";
-import { useAuth } from "../../context/AuthContext";
-import CardArtesanato from "../artesanatos/CardArtesanato";
+import { useAuth } from "../../features/auth/context/AuthContext";
+import CardArtesanato from "../../features/artesanato/components/CardArtesanato";
 import { BuscarArtesanatoPorArtesaoId } from "../../services/ArtesanatoService";
 import { IconCheck } from "@tabler/icons-react";
 

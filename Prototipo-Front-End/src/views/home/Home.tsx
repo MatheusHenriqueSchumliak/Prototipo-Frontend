@@ -1,6 +1,6 @@
 import { Container, Button, Card, Flex, Group, Image, Text, SimpleGrid, Badge, Avatar, Stack, Title, Tooltip, } from "@mantine/core";
 import { listarArtesanatos } from "../../services/ArtesanatoService";
-import ListarArtesanatos from "../artesanatos/ListarArtesanatos";
+import ListarArtesanatos from "../../features/artesanato/views/ListarArtesanatos";
 import { ArtesanatoModel } from "../../models/ArtesanatoModel";
 import { listarArtesaos } from "../../services/ArtesaoService";
 import { ArtesaoModel } from "../../models/ArtesaoModel";
